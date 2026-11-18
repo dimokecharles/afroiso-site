@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'name' => 'AfroISO Institute & Consultants',
+    'address' => '2nd Floor, East Wing, Celestial Park, Liberation Legacy Way, Harare, Zimbabwe',
+    'phone' => '+263 718 781 215',
+    'phone_link' => '+263718781215',
+    'email' => 'info@afroisoconsultants.org',
+
+    // Enquiries from the website are emailed to this address.
+    'office_email' => env('OFFICE_EMAIL', 'info@afroisoconsultants.org'),
+
+    // First admin account, created by "php artisan db:seed".
+    'admin_email' => env('ADMIN_EMAIL', 'admin@afroisoconsultants.org'),
+    'admin_password' => env('ADMIN_PASSWORD'),
+
+    // Leave a link empty to hide that icon in the footer.
+    'social' => [
+        'facebook' => env('SOCIAL_FACEBOOK'),
+        'linkedin' => env('SOCIAL_LINKEDIN'),
+        'instagram' => env('SOCIAL_INSTAGRAM'),
+        'whatsapp' => env('SOCIAL_WHATSAPP'),
+        'x-twitter' => env('SOCIAL_X'),
+        'youtube' => env('SOCIAL_YOUTUBE'),
+        'tiktok' => env('SOCIAL_TIKTOK'),
+    ],
+];

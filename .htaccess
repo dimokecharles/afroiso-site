@@ -1,0 +1,6 @@
+# Fallback for shared hosting where the domain cannot be pointed at the "public" folder.
+# The better setup is to make "public" the document root; see DEPLOY.md.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
