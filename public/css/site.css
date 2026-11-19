@@ -169,6 +169,33 @@ p { margin: 0; }
     .cta__actions .btn { flex: 1 1 100%; justify-content: center; }
 }
 
+/* Consulting page: process timeline and standards band */
+.timeline { list-style: none; margin: 0 auto; padding: 0; max-width: 860px; position: relative; display: flex; flex-direction: column; gap: 36px; }
+.timeline::before { content: ""; position: absolute; left: 31px; top: 12px; bottom: 12px; width: 4px; background: linear-gradient(var(--navy), var(--orange)); border-radius: 2px; }
+.timeline li { position: relative; display: flex; gap: 28px; align-items: flex-start; }
+.timeline__dot { flex: none; width: 66px; height: 66px; border-radius: 50%; background: var(--navy); color: var(--orange-light); font-size: 24px; display: flex; align-items: center; justify-content: center; border: 5px solid var(--tint); box-shadow: 0 8px 18px rgba(15, 30, 69, 0.22); position: relative; z-index: 1; }
+.timeline li:last-child .timeline__dot { background: var(--orange); color: var(--navy-deep); }
+.timeline__body { padding-top: 4px; }
+.timeline__step { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange-text); }
+.timeline h3 { font-size: 27px; margin-top: 2px; }
+.timeline p { margin-top: 8px; color: var(--muted); font-size: 17px; max-width: 56ch; }
+.band { background: var(--navy); color: #fff; padding: 72px 0; border-top: 6px solid var(--orange); }
+.band__inner { display: flex; flex-wrap: wrap; gap: 32px 64px; align-items: center; }
+.band__text { flex: 1 1 340px; min-width: 0; }
+.band__text .eyebrow { margin-bottom: 12px; }
+.band h2 { color: #fff; font-size: clamp(28px, 3.2vw, 38px); }
+.band__tags { flex: 1.3 1 420px; min-width: 0; list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.band__tags li { border: 2px solid var(--orange); color: #fff; font-weight: 700; padding: 11px 20px; border-radius: 18px 0 18px 0; }
+.band__tags li:nth-child(even) { background: var(--orange); color: var(--navy-deep); }
+@media (max-width: 640px) {
+    .timeline { gap: 28px; }
+    .timeline::before { left: 25px; }
+    .timeline li { gap: 18px; }
+    .timeline__dot { width: 54px; height: 54px; font-size: 20px; }
+    .timeline h3 { font-size: 23px; }
+    .band { padding: 48px 0; }
+}
+
 /* Course cards: alternating navy and white, centred, with two rounded corners */
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 24px; }
 .card { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 36px 0 36px 0; padding: 40px 28px 30px; display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center; box-shadow: 0 6px 18px rgba(15, 30, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease; }
