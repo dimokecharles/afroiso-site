@@ -7,6 +7,9 @@ return [
     'phone_link' => '+263718781215',
     'email' => 'info@afroisoconsultants.org',
 
+    // WhatsApp number for the chat box, digits only with the country code. Leave WHATSAPP_NUMBER empty in .env to hide the chat box.
+    'whatsapp_number' => env('WHATSAPP_NUMBER', '263718781215'),
+
     // Enquiries from the website are emailed to this address.
     'office_email' => env('OFFICE_EMAIL', 'info@afroisoconsultants.org'),
 

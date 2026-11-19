@@ -121,6 +121,49 @@
     <a href="{{ route('contact') }}" @class(['is-active' => request()->routeIs('contact')])><i class="fa-solid fa-envelope" aria-hidden="true"></i><span>Contact</span></a>
 </nav>
 
+{{-- WhatsApp chat box, shown on every page --}}
+@php
+    $whatsapp = preg_replace('/\D+/', '', (string) config('afroiso.whatsapp_number'));
+    $chatReplies = [
+        'I want to enrol on a course' => 'Hello AfroISO, I would like to enrol on a course.',
+        'I need consulting for my organisation' => 'Hello AfroISO, I would like to ask about consulting for my organisation.',
+        'I want to order a book or magazine' => 'Hello AfroISO, I would like to order a book or magazine.',
+        'I have another question' => 'Hello AfroISO, I have a question.',
+    ];
+@endphp
+@if ($whatsapp)
+<div class="chat" data-number="{{ $whatsapp }}">
+    <div class="chat__panel" id="chat-panel" role="dialog" aria-label="Chat with AfroISO on WhatsApp" hidden>
+        <div class="chat__head">
+            <div class="chat__avatar"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></div>
+            <div class="chat__who">
+                <strong>AfroISO</strong>
+                <span>Chat with our office on WhatsApp</span>
+            </div>
+            <button class="chat__close" type="button" aria-label="Close chat"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </div>
+        <div class="chat__body">
+            <div class="chat__bubble">Hello! How can we help you today? Choose a topic or type your message.</div>
+            <div class="chat__replies">
+                @foreach ($chatReplies as $label => $message)
+                    <a href="https://wa.me/{{ $whatsapp }}?text={{ rawurlencode($message) }}" target="_blank" rel="noopener">{{ $label }}</a>
+                @endforeach
+            </div>
+        </div>
+        <form class="chat__form">
+            <label class="sr-only" for="chat-input">Your message</label>
+            <input class="chat__input" id="chat-input" type="text" placeholder="Type a message" autocomplete="off">
+            <button type="submit" aria-label="Send on WhatsApp"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i></button>
+        </form>
+        <div class="chat__note">Your message opens in WhatsApp.</div>
+    </div>
+    <button class="chat__launcher" type="button" aria-expanded="false" aria-controls="chat-panel" aria-label="Chat with us on WhatsApp">
+        <i class="fa-brands fa-whatsapp chat__icon-open" aria-hidden="true"></i>
+        <i class="fa-solid fa-xmark chat__icon-close" aria-hidden="true"></i>
+    </button>
+</div>
+@endif
+
 <script src="{{ asset('js/site.js') }}" defer></script>
 </body>
 </html>

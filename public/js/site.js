@@ -28,3 +28,40 @@
         if (window.innerWidth > 860) setOpen(false);
     });
 })();
+
+/* WhatsApp chat box: the quick replies and the typed message open WhatsApp with the text filled in. */
+(function () {
+    var chat = document.querySelector('.chat');
+    if (!chat) return;
+    var launcher = chat.querySelector('.chat__launcher');
+    var panel = chat.querySelector('.chat__panel');
+    var form = chat.querySelector('.chat__form');
+    var input = chat.querySelector('.chat__input');
+    var number = chat.getAttribute('data-number');
+
+    function setOpen(open) {
+        chat.classList.toggle('is-open', open);
+        launcher.setAttribute('aria-expanded', open ? 'true' : 'false');
+        launcher.setAttribute('aria-label', open ? 'Close WhatsApp chat' : 'Chat with us on WhatsApp');
+        panel.hidden = !open;
+        if (open && window.innerWidth > 860) input.focus();
+    }
+
+    launcher.addEventListener('click', function () {
+        setOpen(!chat.classList.contains('is-open'));
+    });
+    chat.querySelector('.chat__close').addEventListener('click', function () {
+        setOpen(false);
+        launcher.focus();
+    });
+    chat.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') { setOpen(false); launcher.focus(); }
+    });
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var text = input.value.trim();
+        if (!text) { input.focus(); return; }
+        window.open('https://wa.me/' + number + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
+        input.value = '';
+    });
+})();
