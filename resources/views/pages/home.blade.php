@@ -5,6 +5,7 @@
     @if (file_exists(public_path('images/hero.jpg')))
         <img class="hero__image" src="{{ asset('images/hero.jpg') }}" alt="">
     @endif
+    <canvas class="hero__canvas" aria-hidden="true"></canvas>
     <div class="hero__overlay"></div>
     <div class="container hero__inner">
         <div class="hero__text">
@@ -125,4 +126,5 @@
         </form>
     </div>
 </section>
+<script src="{{ asset('js/hero.js') }}" defer></script>
 @endsection

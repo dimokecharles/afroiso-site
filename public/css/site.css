@@ -60,6 +60,9 @@ p { margin: 0; }
 /* Hero */
 .hero { position: relative; overflow: hidden; background: var(--navy); color: #fff; }
 .hero__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
+.hero--animated .hero__canvas { display: block; }
+.hero--animated .hero__image { display: none; }
 .hero__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, #0F1E45 0%, rgba(15, 30, 69, 0.82) 45%, rgba(15, 30, 69, 0.25) 100%); }
 .hero__inner { position: relative; display: flex; flex-wrap: wrap; gap: 56px; align-items: flex-start; padding-top: 88px; padding-bottom: 96px; }
 .hero__text { flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
