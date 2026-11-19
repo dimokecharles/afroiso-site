@@ -37,7 +37,8 @@
         </div>
         <div class="field">
             <label for="description">Full description</label>
-            <textarea id="description" name="description" rows="10">{{ old('description', $course->description) }}</textarea>
+            <textarea id="description" name="description" rows="16">{{ old('description', $course->description) }}</textarea>
+            <small>Start a line with ## to make it a heading, and with - to make it a bullet point. Leave an empty line between paragraphs.</small>
         </div>
         <div class="form__row">
             <div class="field">

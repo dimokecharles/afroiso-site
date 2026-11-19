@@ -26,11 +26,11 @@ class DatabaseSeeder extends Seeder
         $start = '2027-01-15';
         $courses = [
             ['iso-9001-quality-management', 'ISO 9001:2026 Quality Management Systems (QMS)', 'ISO 9001:2026', 'Quality Management Systems', 'How an organisation consistently delivers what its customers and regulators require.', 500],
-            ['iso-14001-environmental-management', 'ISO 14001:2026 Environmental Management Systems (EMS)', 'ISO 14001:2026', 'Environmental Management Systems', 'How an organisation controls its effect on the environment and meets its legal duties.', 500],
+            ['iso-14001-environmental-management', 'ISO 14001:2015 Environmental Management Systems (EMS)', 'ISO 14001:2015', 'Environmental Management Systems', 'How an organisation controls its effect on the environment and meets its legal duties.', 500],
             ['iso-45001-occupational-health-and-safety', 'ISO 45001:2018 Occupational Health and Safety Management Systems (OHSMS)', 'ISO 45001:2018', 'Occupational Health and Safety Management Systems', 'How an organisation prevents injury and ill health among the people who work for it.', 500],
             ['iso-iec-27001-information-security', 'ISO/IEC 27001:2022 Information Security Management Systems (ISMS)', 'ISO/IEC 27001:2022', 'Information Security Management Systems', 'How an organisation protects the information it holds, on paper and in its systems.', 900],
             ['food-safety-and-hygiene', 'Food Safety and Hygiene', 'Food Safety and Hygiene', 'R638 (South Africa) and S.I. 5 of 2015 (Zimbabwe)', 'Hygiene requirements for food premises and for the transport of food, under South African and Zimbabwean regulations.', 100],
-            ['lead-auditor', 'Lead Auditor', null, 'Auditing', 'Lead auditor training across the management system standards.', 250],
+            ['internal-auditor', 'Internal Auditor', null, 'Auditing', 'Internal auditor training across the management system standards.', 250],
         ];
 
         foreach ($courses as $i => [$slug, $title, $code, $category, $summary, $fee]) {

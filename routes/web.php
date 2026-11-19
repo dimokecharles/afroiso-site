@@ -9,6 +9,7 @@ Route::get('/', [SiteController::class, 'home'])->name('home');
 Route::get('/about', [SiteController::class, 'about'])->name('about');
 Route::get('/consulting', [SiteController::class, 'consulting'])->name('consulting');
 Route::get('/courses', [SiteController::class, 'courses'])->name('courses.index');
+Route::permanentRedirect('/courses/lead-auditor', '/courses/internal-auditor');
 Route::get('/courses/{course}', [SiteController::class, 'course'])->name('courses.show');
 Route::get('/publications', [SiteController::class, 'publications'])->name('publications');
 Route::get('/verify', [SiteController::class, 'verify'])->name('verify')->middleware('throttle:30,1');

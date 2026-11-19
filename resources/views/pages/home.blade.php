@@ -11,7 +11,7 @@
         <div class="hero__text">
             <div class="eyebrow eyebrow--light">ISO training institute and consultancy &middot; Harare</div>
             <h1>Training the people who build and audit management systems.</h1>
-            <p>AfroISO Institute &amp; Consultants teaches ISO 9001, ISO 14001, ISO 45001 and ISO/IEC 27001, including lead auditor courses, through our e-learning platform. Our consultants help organisations prepare for certification, and we publish and distribute books and magazines.</p>
+            <p>AfroISO Institute &amp; Consultants teaches ISO 9001, ISO 14001, ISO 45001 and ISO/IEC 27001, including internal auditor courses, through our e-learning platform. Our consultants help organisations prepare for certification, and we publish and distribute books and magazines.</p>
             <div class="hero__actions">
                 <a class="btn btn--accent" href="{{ route('courses.index') }}">View training courses</a>
                 <a class="btn btn--light" href="{{ route('consulting') }}">Ask about consulting</a>
@@ -38,7 +38,7 @@
             <h2>A training institute, a consultancy and a publisher under one roof.</h2>
             <p>We are based in Harare and work with organisations and professionals who need to understand, implement or audit an ISO management system.</p>
             <ul class="about__points">
-                <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>E-learning courses, up to lead auditor level</li>
+                <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>E-learning courses, up to internal auditor level</li>
                 <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Consultants who help you prepare for certification</li>
                 <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Books and magazines that we publish and distribute</li>
             </ul>
@@ -56,7 +56,7 @@
             <div>
                 <div class="eyebrow">Training courses</div>
                 <h2>Courses by standard</h2>
-                <p>Courses in the ISO management system standards, up to lead auditor level, and in food safety.</p>
+                <p>Courses in the ISO management system standards, up to internal auditor level, and in food safety.</p>
             </div>
             <a class="btn btn--accent btn--cut" href="{{ route('courses.index') }}">View all<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </div>

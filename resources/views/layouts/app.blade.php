@@ -12,7 +12,7 @@
             : config('afroiso.name') . ' | ISO Training, Consulting and Publications in Harare';
     @endphp
     <title>{{ $fullTitle }}</title>
-    <meta name="description" content="@yield('description', 'AfroISO Institute & Consultants in Harare, Zimbabwe: e-learning courses in ISO 9001, ISO 14001, ISO 45001, ISO/IEC 27001 and food safety, lead auditor training, ISO consulting, books and magazines.')">
+    <meta name="description" content="@yield('description', 'AfroISO Institute & Consultants in Harare, Zimbabwe: e-learning courses in ISO 9001, ISO 14001, ISO 45001, ISO/IEC 27001 and food safety, internal auditor training, ISO consulting, books and magazines.')">
     <meta name="robots" content="@yield('robots', 'index, follow')">
     <link rel="canonical" href="{{ url()->current() }}">
     @if (config('afroiso.google_site_verification'))
@@ -25,7 +25,7 @@
     <meta property="og:locale" content="en_GB">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="{{ $fullTitle }}">
-    <meta property="og:description" content="@yield('description', 'E-learning courses in ISO 9001, ISO 14001, ISO 45001, ISO/IEC 27001 and food safety, lead auditor training, ISO consulting, books and magazines.')">
+    <meta property="og:description" content="@yield('description', 'E-learning courses in ISO 9001, ISO 14001, ISO 45001, ISO/IEC 27001 and food safety, internal auditor training, ISO consulting, books and magazines.')">
     <meta property="og:image" content="@yield('image', asset('images/share.jpg'))">
     <meta property="og:image:alt" content="{{ config('afroiso.name') }}">
     <meta name="twitter:card" content="summary_large_image">

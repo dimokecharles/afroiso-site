@@ -22,7 +22,7 @@
         <div class="about__body">
             <div class="eyebrow">Who we are</div>
             <h2>What AfroISO is all about</h2>
-            <p>AfroISO Institute &amp; Consultants is based in Harare, Zimbabwe. We teach the ISO management system standards for quality, environment, occupational health and safety, and information security, together with food safety and lead auditor training.</p>
+            <p>AfroISO Institute &amp; Consultants is based in Harare, Zimbabwe. We teach the ISO management system standards for quality, environment, occupational health and safety, and information security, together with food safety and internal auditor training.</p>
             <p>Our courses are delivered through our e-learning platform, so you can study from anywhere. Our consultants work alongside organisations preparing for certification, and we publish and distribute books and magazines on standards.</p>
             <div class="about__place"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>{{ config('afroiso.address') }}</span></div>
         </div>
@@ -58,7 +58,7 @@
                 <span class="numbered__no">01</span>
                 <div>
                     <h3><a href="{{ route('courses.index') }}">Training</a></h3>
-                    <p>E-learning courses in the ISO standards and food safety, up to lead auditor level.</p>
+                    <p>E-learning courses in the ISO standards and food safety, up to internal auditor level.</p>
                 </div>
             </li>
             <li>
@@ -91,8 +91,8 @@
             <li><i class="fa-solid fa-user-tie" aria-hidden="true"></i><div><strong>Working professionals</strong><span>Quality, safety, environmental and IT staff who want a recognised skill in management systems.</span></div></li>
             <li><i class="fa-solid fa-user-graduate" aria-hidden="true"></i><div><strong>Students and graduates</strong><span>People starting a career who want to stand out with knowledge of the ISO standards.</span></div></li>
             <li><i class="fa-solid fa-store" aria-hidden="true"></i><div><strong>Small and medium enterprises</strong><span>Businesses building their first management system or preparing for certification.</span></div></li>
-            <li><i class="fa-solid fa-building" aria-hidden="true"></i><div><strong>Certified organisations</strong><span>Companies keeping their systems current, including the move to the 2026 editions of ISO 9001 and ISO 14001.</span></div></li>
-            <li><i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i><div><strong>Auditors</strong><span>Internal auditors and those working towards lead auditor level.</span></div></li>
+            <li><i class="fa-solid fa-building" aria-hidden="true"></i><div><strong>Certified organisations</strong><span>Companies keeping their systems current, including the move to ISO 9001:2026.</span></div></li>
+            <li><i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i><div><strong>Auditors</strong><span>Internal auditors and people training to become one.</span></div></li>
             <li><i class="fa-solid fa-utensils" aria-hidden="true"></i><div><strong>Food businesses</strong><span>Food premises and transporters that must meet hygiene regulations in Zimbabwe and South Africa.</span></div></li>
         </ul>
     </div>

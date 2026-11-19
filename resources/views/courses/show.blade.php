@@ -38,7 +38,7 @@
     <div class="container split">
         <div class="split__body split__body--wide">
             @if ($course->description)
-                <div class="prose">{!! nl2br(e($course->description)) !!}</div>
+                <div class="prose">{!! $course->descriptionHtml() !!}</div>
             @else
                 <p>Full course details will be published here shortly. Contact our office for the course outline.</p>
             @endif

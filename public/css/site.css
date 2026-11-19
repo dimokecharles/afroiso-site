@@ -101,6 +101,10 @@ p { margin: 0; }
 .split__body { flex: 2 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 16px; font-size: 17px; color: var(--muted); align-items: flex-start; }
 .split__body--wide { flex: 3 1 520px; }
 .prose { display: flex; flex-direction: column; gap: 16px; font-size: 17px; color: var(--muted); }
+.prose h2 { font-size: 26px; color: var(--navy); margin-top: 18px; padding-top: 22px; border-top: 2px solid var(--navy); }
+.prose ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.prose li { position: relative; padding-left: 30px; }
+.prose li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 14px; height: 14px; border-radius: 6px 0 6px 0; background: var(--orange); }
 
 /* Homepage About block: logo panel and call to action */
 .about { display: flex; flex-wrap: wrap; gap: 48px 72px; align-items: center; }
