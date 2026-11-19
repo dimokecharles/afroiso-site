@@ -51,8 +51,9 @@
         <div class="split__head">
             <div class="eyebrow">What we do</div>
             <h2>Three services, one purpose</h2>
+            @include('pages._consultant')
         </div>
-        <ol class="numbered">
+        <ol class="numbered" data-reveal>
             <li>
                 <span class="numbered__no">01</span>
                 <div>

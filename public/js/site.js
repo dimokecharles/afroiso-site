@@ -100,3 +100,23 @@
     tick();
     window.setInterval(tick, 1000);
 })();
+
+/* Scroll-in animation: elements marked data-reveal get the class "is-in" when they come into view. */
+(function () {
+    var items = document.querySelectorAll('[data-reveal]');
+    if (!items.length) return;
+    document.documentElement.classList.add('js');
+    if (!('IntersectionObserver' in window)) {
+        for (var i = 0; i < items.length; i++) items[i].classList.add('is-in');
+        return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    for (var k = 0; k < items.length; k++) observer.observe(items[k]);
+})();
