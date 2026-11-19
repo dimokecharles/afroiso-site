@@ -50,14 +50,17 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        // Placeholders: replace the titles, descriptions and covers in the admin panel.
-        Publication::firstOrCreate(
-            ['type' => 'book'],
-            ['title' => '[BOOK TITLE]', 'description' => '[Short description of the book and its author]', 'price' => 40, 'sort_order' => 10]
-        );
-        Publication::firstOrCreate(
-            ['type' => 'magazine'],
-            ['title' => '[MAGAZINE TITLE]', 'description' => '[Short description of the magazine and how often it is published]', 'price' => 4.99, 'sort_order' => 20]
-        );
+        $publications = [
+            ['book', 'Systems Over Hustle: ISO Standards for African SMEs', "By Norman Sifiso Ndlovu.\nHow African small and medium-sized enterprises can use ISO standards to build systems that run the business, instead of relying on hustle.", 40, 'images/publications/systems-over-hustle.jpg', 10],
+            ['magazine', 'StandardIQ, 1–15 November 2026: The Quality Leadership Test', "AfroISO's monthly ISO magazine.\nIn this issue: South Africa adopts ISO 9001:2026, and Blake Mosley-Lefatola, CEO of SABS, on turning standards into better performance.", 4.99, 'images/publications/standardiq-november-2026.webp', 20],
+            ['magazine', 'StandardIQ, 5 October – 4 November 2026: ISO 9001:2026, the New Quality Era Begins', "AfroISO's monthly ISO magazine.\nIn this issue: the new edition of ISO 9001, featuring Khaled Soufi (ISO President), Francisca Tatchouop Belobe (AU Commissioner for ETTIM) and Hermogène Nsengimana (Secretary General, ARSO).", 4.99, 'images/publications/standardiq-october-2026.webp', 30],
+        ];
+
+        foreach ($publications as [$type, $title, $description, $price, $coverPath, $sortOrder]) {
+            Publication::firstOrCreate(
+                ['title' => $title],
+                ['type' => $type, 'description' => $description, 'price' => $price, 'cover_path' => $coverPath, 'sort_order' => $sortOrder]
+            );
+        }
     }
 }
