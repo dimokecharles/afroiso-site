@@ -89,22 +89,39 @@
 
 <section class="section">
     <div class="container">
-        <div class="section__head">
+        <div class="section__head section__head--center">
             <div class="eyebrow">What we do</div>
             <h2>Three ways to work with us</h2>
+            <p>Learn the standards, get help putting them in place, or read our publications.</p>
         </div>
-        <div class="ways">
-            <div class="way">
+        <div class="steps">
+            <svg class="steps__line" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M 240 78 C 300 10, 370 10, 432 78"></path>
+                <path d="M 568 128 C 630 196, 700 196, 760 128"></path>
+            </svg>
+            <div class="step">
+                <div class="step__art">
+                    <div class="step__tile"><i class="fa-solid fa-laptop" aria-hidden="true"></i></div>
+                    <div class="step__badge"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
+                </div>
                 <h3>Training</h3>
                 <p>We offer e-learning training to anyone interested in ISO, whether you are an individual or an organisation.</p>
                 <a class="text-link" href="{{ route('courses.index') }}">See courses and dates</a>
             </div>
-            <div class="way">
+            <div class="step">
+                <div class="step__art">
+                    <div class="step__tile"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i></div>
+                    <div class="step__badge"><i class="fa-solid fa-comments" aria-hidden="true"></i></div>
+                </div>
                 <h3>Consulting</h3>
                 <p>Gap analysis, help building the management system, internal audits and a readiness check before the certification audit.</p>
                 <a class="text-link" href="{{ route('consulting') }}">Speak to a consultant</a>
             </div>
-            <div class="way">
+            <div class="step">
+                <div class="step__art">
+                    <div class="step__tile step__tile--navy"><i class="fa-solid fa-book-open" aria-hidden="true"></i></div>
+                    <div class="step__badge step__badge--light"><i class="fa-solid fa-newspaper" aria-hidden="true"></i></div>
+                </div>
                 <h3>Publications</h3>
                 <p>We publish and distribute books and magazines.</p>
                 <a class="text-link" href="{{ route('publications') }}">See our publications</a>
