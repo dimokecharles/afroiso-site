@@ -139,7 +139,7 @@
             </div>
             <a class="text-link" href="{{ route('courses.index') }}">View all courses</a>
         </div>
-        @include('courses._table', ['courses' => $courses])
+        @include('courses._intake', ['courses' => $courses])
     </div>
 </section>
 
