@@ -116,11 +116,11 @@
                 <li><span>2</span><p>We reply by email or phone with dates, fees and next steps.</p></li>
                 <li><span>3</span><p>When you are ready, we send you an invoice.</p></li>
             </ol>
-            <h3>Our office</h3>
+            <h3>Our Office</h3>
             <ul class="office__list">
-                <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>{{ config('afroiso.address') }}</span></li>
                 <li><i class="fa-solid fa-phone" aria-hidden="true"></i><a href="tel:{{ config('afroiso.phone_link') }}">{{ config('afroiso.phone') }}</a></li>
                 <li><i class="fa-solid fa-envelope" aria-hidden="true"></i><a href="mailto:{{ config('afroiso.email') }}">{{ config('afroiso.email') }}</a></li>
+                <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>{{ config('afroiso.address') }}</span></li>
             </ul>
         </aside>
     </div>

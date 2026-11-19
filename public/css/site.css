@@ -519,7 +519,7 @@ dd { margin: 4px 0 0; color: var(--muted); }
 .map__panel p { color: var(--pale); }
 @media (max-width: 860px) {
     .map iframe { height: 380px; }
-    .map__holder { position: static; max-width: none; padding: 0; }
+    .map .map__holder { position: static; max-width: none; padding: 0; }
     .map__panel { width: 100%; border-radius: 0; box-shadow: none; padding: 30px 32px; }
 }
 @media (max-width: 640px) {
