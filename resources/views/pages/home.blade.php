@@ -27,14 +27,25 @@
 </section>
 
 <section class="section">
-    <div class="container split">
-        <div class="split__head">
+    <div class="container about">
+        <div class="about__brand">
+            <div class="about__logo">
+                <img src="{{ asset('images/logo.jpg') }}" alt="{{ config('afroiso.name') }}">
+            </div>
+        </div>
+        <div class="about__body">
             <div class="eyebrow">About the institute</div>
             <h2>A training institute, a consultancy and a publisher under one roof.</h2>
-        </div>
-        <div class="split__body">
-            <p>We are based in Harare and work with organisations and professionals who need to understand, implement or audit an ISO management system. Courses are delivered through our e-learning platform. We also publish and distribute books and magazines.</p>
-            <a class="text-link" href="{{ route('about') }}">Read more about us</a>
+            <p>We are based in Harare and work with organisations and professionals who need to understand, implement or audit an ISO management system.</p>
+            <ul class="about__points">
+                <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>E-learning courses, up to lead auditor level</li>
+                <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Consultants who help you prepare for certification</li>
+                <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Books and magazines that we publish and distribute</li>
+            </ul>
+            <div class="about__actions">
+                <a class="btn btn--accent btn--cut" href="{{ route('about') }}">Read more about us<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <a class="btn btn--outline btn--cut" href="{{ route('contact') }}">Talk to our office</a>
+            </div>
         </div>
     </div>
 </section>
