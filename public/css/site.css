@@ -291,3 +291,90 @@ dd { margin: 4px 0 0; color: var(--muted); }
     .section__head h2, .split__head h2 { font-size: 30px; }
     .pub, .form { padding: 24px 20px; }
 }
+
+/* ------------------------------------------------------------------
+   Phones and small tablets: compact sticky header with a menu button,
+   an app-style bar at the bottom, and swipeable course cards.
+   ------------------------------------------------------------------ */
+* { -webkit-tap-highlight-color: rgba(244, 114, 22, 0.18); }
+.btn:active, .tabbar a:active, .nav-toggle:active { transform: scale(0.97); }
+.nav-toggle { display: none; width: 48px; height: 48px; align-items: center; justify-content: center; background: var(--navy); color: #fff; border: 0; border-radius: 14px 0 14px 0; font-size: 20px; cursor: pointer; }
+.tabbar { display: none; }
+
+@media (max-width: 860px) {
+    html { scroll-padding-top: 84px; }
+    body { padding-bottom: calc(66px + env(safe-area-inset-bottom, 0px)); }
+
+    /* top bar: phone and email only */
+    .topbar { font-size: 13px; }
+    .topbar__inner { justify-content: center; padding-top: 7px; padding-bottom: 7px; }
+    .topbar__inner > .topbar__item { display: none; }
+    .topbar__links { justify-content: center; gap: 4px 18px; }
+
+    /* sticky header with a menu button */
+    .header { position: sticky; top: 0; z-index: 50; box-shadow: 0 4px 14px rgba(15, 30, 69, 0.1); }
+    .header__inner { flex-wrap: nowrap; padding-top: 10px; padding-bottom: 10px; }
+    .header__logo img { height: 50px; }
+    .nav-toggle { display: inline-flex; flex: none; }
+    .nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: #fff; flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 0; padding: 6px 20px 20px; border-bottom: 4px solid var(--orange); box-shadow: 0 22px 34px rgba(15, 30, 69, 0.2); max-height: calc(100vh - 150px); overflow-y: auto; font-size: 17px; }
+    .header.is-open .nav { display: flex; animation: nav-drop 0.18s ease; }
+    .nav a { padding: 15px 4px; border-bottom: 1px solid var(--line); }
+    .nav a.is-active { border-bottom-color: var(--line); color: var(--orange-text); }
+    .nav a.nav__cta { margin-top: 16px; padding: 15px 20px; text-align: center; border-bottom: 0; border-radius: 16px 0 16px 0; }
+
+    /* bottom bar */
+    .tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); background: var(--navy-deep); border-top: 3px solid var(--orange); padding-bottom: env(safe-area-inset-bottom, 0px); box-shadow: 0 -8px 22px rgba(10, 21, 48, 0.28); }
+    .tabbar a { min-height: 62px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: var(--pale); text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; }
+    .tabbar a i { font-size: 19px; }
+    .tabbar a.is-active { color: var(--orange-light); }
+}
+@keyframes nav-drop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 640px) {
+    .section { padding: 46px 0; }
+    .section__head { margin-bottom: 26px; }
+    .section__head h2, .split__head h2, .about__body h2 { font-size: 28px; }
+    .page-head { padding: 40px 0; }
+
+    /* hero */
+    .hero__inner { padding-top: 40px; padding-bottom: 48px; gap: 32px; }
+    .hero h1 { font-size: 33px; }
+    .hero__text { gap: 18px; }
+    .hero__text p { font-size: 17px; }
+    .hero__actions .btn { flex: 1 1 100%; text-align: center; }
+    .notice { padding: 22px 20px 24px; }
+
+    /* about */
+    .about { gap: 34px; }
+    .about__logo { padding: 30px 22px; }
+    .about__actions { width: 100%; }
+    .about__actions .btn { flex: 1 1 100%; justify-content: center; }
+
+    /* course cards become a row you swipe sideways */
+    .cards { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 6px 20px 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .cards::-webkit-scrollbar { display: none; }
+    .card { flex: 0 0 82%; scroll-snap-align: center; padding: 32px 22px 26px; }
+    .card:hover, .card:focus-within { transform: none; }
+
+    /* three ways */
+    .steps { gap: 30px; }
+    .step__art { height: 160px; margin-bottom: 0; }
+
+    /* publications */
+    .pub { gap: 22px; }
+    .pub__cover { flex-basis: 150px; width: 150px; height: 212px; }
+    .pub__body h3 { font-size: 24px; }
+    .pub__body .btn { width: 100%; text-align: center; }
+
+    /* verify */
+    .verify-band { padding: 46px 0; }
+    .verify-form .btn { flex: 1 1 100%; }
+
+    /* footer: link lists side by side */
+    .footer { padding-top: 40px; }
+    .footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 20px; }
+    .footer__col--brand, .footer__col--contact { grid-column: 1 / -1; }
+    .footer__col a { padding: 3px 0; }
+    .footer__social { justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .header.is-open .nav { animation: none; } .btn:active, .tabbar a:active, .nav-toggle:active { transform: none; } }

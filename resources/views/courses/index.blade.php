@@ -11,7 +11,7 @@
 </section>
 <section class="section">
     <div class="container">
-        @include('courses._table', ['courses' => $courses])
+        @include('courses._intake', ['courses' => $courses])
     </div>
 </section>
 @endsection

@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0A1530">
     <title>@hasSection('title')@yield('title') | @endif{{ config('afroiso.name') }}</title>
     <meta name="description" content="@yield('description', 'AfroISO Institute & Consultants, Harare: e-learning courses in ISO 9001, ISO 14001, ISO 45001, ISO/IEC 27001 and food safety, plus consulting and publications.')">
     <link rel="icon" href="{{ asset('images/logo.jpg') }}">
@@ -30,7 +31,8 @@
         <a href="{{ route('home') }}" class="header__logo">
             <img src="{{ asset('images/logo.jpg') }}" alt="{{ config('afroiso.name') }}">
         </a>
-        <nav class="nav" aria-label="Main">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+        <nav class="nav" id="site-nav" aria-label="Main">
             <a href="{{ route('home') }}" @class(['is-active' => request()->routeIs('home')])>Home</a>
             <a href="{{ route('about') }}" @class(['is-active' => request()->routeIs('about')])>About</a>
             <a href="{{ route('courses.index') }}" @class(['is-active' => request()->routeIs('courses.*')])>Training courses</a>
@@ -109,5 +111,16 @@
         </div>
     </div>
 </footer>
+
+{{-- App-style bar at the bottom of the screen on phones --}}
+<nav class="tabbar" aria-label="Quick navigation">
+    <a href="{{ route('home') }}" @class(['is-active' => request()->routeIs('home')])><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+    <a href="{{ route('courses.index') }}" @class(['is-active' => request()->routeIs('courses.*')])><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i><span>Courses</span></a>
+    <a href="{{ route('publications') }}" @class(['is-active' => request()->routeIs('publications')])><i class="fa-solid fa-book-open" aria-hidden="true"></i><span>Books</span></a>
+    <a href="{{ route('verify') }}" @class(['is-active' => request()->routeIs('verify')])><i class="fa-solid fa-certificate" aria-hidden="true"></i><span>Verify</span></a>
+    <a href="{{ route('contact') }}" @class(['is-active' => request()->routeIs('contact')])><i class="fa-solid fa-envelope" aria-hidden="true"></i><span>Contact</span></a>
+</nav>
+
+<script src="{{ asset('js/site.js') }}" defer></script>
 </body>
 </html>
