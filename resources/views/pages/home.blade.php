@@ -41,10 +41,13 @@
 
 <section class="section section--tint">
     <div class="container">
-        <div class="section__head">
-            <div class="eyebrow">Training courses</div>
-            <h2>Courses by standard</h2>
-            <p>Courses in the ISO management system standards, up to lead auditor level, and in food safety.</p>
+        <div class="section__head section__head--row">
+            <div>
+                <div class="eyebrow">Training courses</div>
+                <h2>Courses by standard</h2>
+                <p>Courses in the ISO management system standards, up to lead auditor level, and in food safety.</p>
+            </div>
+            <a class="btn btn--accent btn--cut" href="{{ route('courses.index') }}">View all<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </div>
         @php
             // Icon for each card, chosen by a keyword in the card heading or course title.
