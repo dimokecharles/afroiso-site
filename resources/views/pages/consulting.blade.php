@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Consulting')
+@section('title', 'ISO Consulting and Certification Support')
+@section('description', 'ISO consulting from AfroISO in Harare: gap analysis, help building your management system, internal audits and a readiness check before the certification audit.')
 
 @section('content')
 <section class="page-head">

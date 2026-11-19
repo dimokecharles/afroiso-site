@@ -7,6 +7,9 @@ return [
     'phone_link' => '+263718781215',
     'email' => 'info@afroisoconsultants.org',
 
+    // Code from Google Search Console (the content value of its HTML tag). Optional.
+    'google_site_verification' => env('GOOGLE_SITE_VERIFICATION'),
+
     // WhatsApp number for the chat box, digits only with the country code. Leave WHATSAPP_NUMBER empty in .env to hide the chat box.
     'whatsapp_number' => env('WHATSAPP_NUMBER', '263718781215'),
 

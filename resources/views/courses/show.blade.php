@@ -1,6 +1,28 @@
 @extends('layouts.app')
 @section('title', $course->title)
-@section('description', $course->summary ?: $course->title)
+@section('description', trim(($course->summary ?: $course->title) . ' ' . $course->delivery . ' course from AfroISO, starting ' . $course->startLabel() . '. Fee: ' . $course->feeLabel() . '.'))
+
+@push('structured-data')
+    @php
+        $courseData = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Course',
+            'name' => $course->title,
+            'description' => $course->summary ?: $course->title,
+            'url' => route('courses.show', $course),
+            'provider' => ['@type' => 'EducationalOrganization', '@id' => url('/') . '#organisation', 'name' => config('afroiso.name'), 'url' => url('/')],
+        ];
+        $instance = ['@type' => 'CourseInstance', 'courseMode' => 'Online'];
+        if ($course->start_date) {
+            $instance['startDate'] = $course->start_date->toDateString();
+        }
+        $courseData['hasCourseInstance'] = $instance;
+        if ($course->fee !== null) {
+            $courseData['offers'] = ['@type' => 'Offer', 'category' => 'Paid', 'price' => number_format((float) $course->fee, 2, '.', ''), 'priceCurrency' => 'USD', 'url' => route('courses.show', $course)];
+        }
+    @endphp
+    <script type="application/ld+json">{!! json_encode($courseData, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}</script>
+@endpush
 
 @section('content')
 <section class="page-head">

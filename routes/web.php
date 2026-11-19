@@ -13,6 +13,7 @@ Route::get('/courses/{course}', [SiteController::class, 'course'])->name('course
 Route::get('/publications', [SiteController::class, 'publications'])->name('publications');
 Route::get('/verify', [SiteController::class, 'verify'])->name('verify')->middleware('throttle:30,1');
 Route::get('/contact', [SiteController::class, 'contact'])->name('contact');
+Route::get('/sitemap.xml', [SiteController::class, 'sitemap'])->name('sitemap');
 Route::post('/contact', [SiteController::class, 'sendEnquiry'])->name('contact.send')->middleware('throttle:5,1');
 Route::get('/{policy}', [SiteController::class, 'policy'])
     ->whereIn('policy', ['privacy-policy', 'terms', 'refund-policy'])

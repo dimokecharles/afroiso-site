@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Contact')
+@section('title', 'Contact AfroISO in Harare')
+@section('description', 'Contact AfroISO Institute & Consultants at Celestial Park, Liberation Legacy Way, Harare. Call +263 718 781 215 or send an enquiry about courses, consulting or publications.')
 
 @section('content')
 <section class="page-head">

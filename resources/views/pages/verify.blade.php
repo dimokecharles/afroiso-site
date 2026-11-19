@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Verify a certificate')
+@section('title', 'Verify a Certificate')
+@section('description', 'Check that a training certificate was issued by AfroISO Institute & Consultants by entering its certificate number.')
 
 @section('content')
 <section class="page-head">

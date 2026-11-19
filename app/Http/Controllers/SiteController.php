@@ -108,6 +108,42 @@ class SiteController extends Controller
         return redirect()->route('contact')->with('sent', true);
     }
 
+    /**
+     * List of pages for Google and other search engines.
+     */
+    public function sitemap()
+    {
+        $pages = [
+            ['loc' => route('home'), 'priority' => '1.0'],
+            ['loc' => route('courses.index'), 'priority' => '0.9'],
+            ['loc' => route('consulting'), 'priority' => '0.8'],
+            ['loc' => route('publications'), 'priority' => '0.8'],
+            ['loc' => route('about'), 'priority' => '0.7'],
+            ['loc' => route('contact'), 'priority' => '0.7'],
+            ['loc' => route('verify'), 'priority' => '0.4'],
+        ];
+
+        foreach (Course::published()->get() as $course) {
+            $pages[] = [
+                'loc' => route('courses.show', $course),
+                'priority' => '0.9',
+                'lastmod' => optional($course->updated_at)->toDateString(),
+            ];
+        }
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+        foreach ($pages as $page) {
+            $xml .= '  <url><loc>' . e($page['loc']) . '</loc>';
+            if (! empty($page['lastmod'])) {
+                $xml .= '<lastmod>' . $page['lastmod'] . '</lastmod>';
+            }
+            $xml .= '<priority>' . $page['priority'] . '</priority></url>' . "\n";
+        }
+        $xml .= '</urlset>' . "\n";
+
+        return response($xml, 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
+    }
+
     public function policy(string $policy)
     {
         $titles = [

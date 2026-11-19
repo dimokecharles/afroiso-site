@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Publications')
+@section('title', 'Books and Magazines')
+@section('description', 'Books and magazines on ISO standards published and distributed by AfroISO Institute & Consultants, Harare.')
 
 @section('content')
 <section class="page-head">

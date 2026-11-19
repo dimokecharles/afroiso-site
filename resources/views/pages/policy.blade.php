@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('title', $title)
+{{-- Kept out of Google until the real policy text is in place. Remove this line then. --}}
+@section('robots', 'noindex, follow')
 
 @section('content')
 <section class="page-head">

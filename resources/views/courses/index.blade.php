@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Training courses')
+@section('title', 'ISO Training Courses and Dates')
+@section('description', 'E-learning courses from AfroISO: ISO 9001, ISO 14001, ISO 45001, ISO/IEC 27001, food safety and lead auditor training, with start dates and fees.')
 
 @section('content')
 <section class="page-head">

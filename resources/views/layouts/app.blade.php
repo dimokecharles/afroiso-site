@@ -4,9 +4,69 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#0A1530">
-    <title>@hasSection('title')@yield('title') | @endif{{ config('afroiso.name') }}</title>
-    <meta name="description" content="@yield('description', 'AfroISO Institute & Consultants, Harare: e-learning courses in ISO 9001, ISO 14001, ISO 45001, ISO/IEC 27001 and food safety, plus consulting and publications.')">
-    <link rel="icon" href="{{ asset('images/logo.jpg') }}">
+    <title>@hasSection('title')@yield('title') | {{ config('afroiso.name') }}@else{{ config('afroiso.name') }} | ISO Training, Consulting and Publications in Harare@endif</title>
+    <meta name="description" content="@yield('description', 'AfroISO Institute & Consultants in Harare, Zimbabwe: e-learning courses in ISO 9001, ISO 14001, ISO 45001, ISO/IEC 27001 and food safety, lead auditor training, ISO consulting, books and magazines.')">
+    <meta name="robots" content="@yield('robots', 'index, follow')">
+    <link rel="canonical" href="{{ url()->current() }}">
+    @if (config('afroiso.google_site_verification'))
+        <meta name="google-site-verification" content="{{ config('afroiso.google_site_verification') }}">
+    @endif
+
+    {{-- How the page looks when shared on WhatsApp, Facebook, LinkedIn and X --}}
+    <meta property="og:site_name" content="{{ config('afroiso.name') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@hasSection('title')@yield('title') | {{ config('afroiso.name') }}@else{{ config('afroiso.name') }} | ISO Training, Consulting and Publications in Harare@endif">
+    <meta property="og:description" content="@yield('description', 'E-learning courses in ISO 9001, ISO 14001, ISO 45001, ISO/IEC 27001 and food safety, lead auditor training, ISO consulting, books and magazines.')">
+    <meta property="og:image" content="@yield('image', asset('images/share.jpg'))">
+    <meta property="og:image:alt" content="{{ config('afroiso.name') }}">
+    <meta name="twitter:card" content="summary_large_image">
+
+    {{-- Site icons: browser tab, Google results, phone home screen --}}
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('images/icon-192.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+
+    {{-- Facts about the organisation for Google, plus anything a page adds --}}
+    @php
+        $organisation = [
+            '@context' => 'https://schema.org',
+            '@type' => 'EducationalOrganization',
+            '@id' => url('/') . '#organisation',
+            'name' => config('afroiso.name'),
+            'alternateName' => 'AfroISO',
+            'url' => url('/'),
+            'logo' => asset('images/icon-512.png'),
+            'image' => asset('images/share.jpg'),
+            'description' => 'Training institute, consultancy and publisher for ISO management system standards, based in Harare, Zimbabwe.',
+            'email' => config('afroiso.email'),
+            'telephone' => config('afroiso.phone'),
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => '2nd Floor, East Wing, Celestial Park, Liberation Legacy Way',
+                'addressLocality' => 'Harare',
+                'addressCountry' => 'ZW',
+            ],
+        ];
+        $profiles = array_values(array_filter(config('afroiso.social', [])));
+        if ($profiles) {
+            $organisation['sameAs'] = $profiles;
+        }
+        $website = [
+            '@context' => 'https://schema.org',
+            '@type' => 'WebSite',
+            'name' => config('afroiso.name'),
+            'alternateName' => 'AfroISO',
+            'url' => url('/'),
+        ];
+        $jsonFlags = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG;
+    @endphp
+    <script type="application/ld+json">{!! json_encode($organisation, $jsonFlags) !!}</script>
+    <script type="application/ld+json">{!! json_encode($website, $jsonFlags) !!}</script>
+    @stack('structured-data')
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
