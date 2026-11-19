@@ -49,16 +49,9 @@
 <footer class="footer">
     <div class="container">
         <div class="footer__grid">
-            <div class="footer__col">
-                <div class="footer__brand">Afro<span>ISO</span></div>
-                <div>Institute &amp; Consultants</div>
-                <div>Harare, Zimbabwe</div>
-            </div>
-            <div class="footer__col">
-                <div class="footer__heading">Training</div>
-                @foreach (\App\Models\Course::published()->whereNotNull('code')->get() as $footerCourse)
-                    <a href="{{ route('courses.show', $footerCourse) }}">{{ $footerCourse->code }}</a>
-                @endforeach
+            <div class="footer__col footer__col--brand">
+                <a class="footer__logo" href="{{ route('home') }}"><img src="{{ asset('images/logo.jpg') }}" alt="{{ config('afroiso.name') }}"></a>
+                <p>AfroISO Institute &amp; Consultants is a Harare-based training institute, consultancy and publisher for ISO management system standards.</p>
             </div>
             <div class="footer__col">
                 <div class="footer__heading">Quick links</div>
@@ -69,16 +62,22 @@
                 <a href="{{ route('verify') }}">Verify a certificate</a>
             </div>
             <div class="footer__col">
-                <div class="footer__heading">Policies</div>
-                <a href="{{ route('policy', 'privacy-policy') }}">Privacy policy</a>
-                <a href="{{ route('policy', 'terms') }}">Terms and conditions</a>
-                <a href="{{ route('policy', 'refund-policy') }}">Refund policy</a>
+                <div class="footer__heading">Training</div>
+                @foreach (\App\Models\Course::published()->whereNotNull('code')->get() as $footerCourse)
+                    <a href="{{ route('courses.show', $footerCourse) }}">{{ $footerCourse->code }}</a>
+                @endforeach
             </div>
             <div class="footer__col">
-                <div class="footer__heading">Contact</div>
-                <div>{{ config('afroiso.address') }}</div>
-                <a href="tel:{{ config('afroiso.phone_link') }}">{{ config('afroiso.phone') }}</a>
-                <a href="mailto:{{ config('afroiso.email') }}">{{ config('afroiso.email') }}</a>
+                <div class="footer__heading">Policies</div>
+                <a href="{{ route('policy', 'privacy-policy') }}">Privacy policy</a>
+                <a href="{{ route('policy', 'refund-policy') }}">Refund policy</a>
+                <a href="{{ route('policy', 'terms') }}">Terms and conditions</a>
+            </div>
+            <div class="footer__col footer__col--contact">
+                <div class="footer__heading">Contact us</div>
+                <a class="footer__contact" href="tel:{{ config('afroiso.phone_link') }}"><i class="fa-solid fa-phone" aria-hidden="true"></i><span>{{ config('afroiso.phone') }}</span></a>
+                <a class="footer__contact" href="mailto:{{ config('afroiso.email') }}"><i class="fa-solid fa-envelope" aria-hidden="true"></i><span>{{ config('afroiso.email') }}</span></a>
+                <div class="footer__contact"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>{{ config('afroiso.address') }}</span></div>
             </div>
         </div>
 

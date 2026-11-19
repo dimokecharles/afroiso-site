@@ -266,17 +266,22 @@ dd { margin: 4px 0 0; color: var(--muted); }
 .footer { background: var(--navy-deep); color: var(--pale); border-top: 4px solid var(--orange); padding: 56px 0 32px; font-size: 15px; }
 .footer a { color: var(--pale); }
 .footer a:hover { color: #fff; }
-.footer__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 32px 40px; }
+.footer__grid { display: grid; grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr)) minmax(0, 1.4fr); gap: 32px 40px; }
+@media (max-width: 1080px) { .footer__grid { grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); } }
 .footer__col { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
 .footer__col a { overflow-wrap: anywhere; }
-.footer__brand { font-family: var(--serif); font-weight: 700; font-size: 22px; color: #fff; }
-.footer__brand span { color: var(--orange-light); }
+.footer__col--brand { gap: 16px; }
+.footer__logo { display: inline-block; background: #fff; padding: 10px 16px; border-radius: 18px 0 18px 0; }
+.footer__logo img { display: block; height: 62px; width: auto; }
+.footer__col--brand p { color: var(--pale); max-width: 34ch; }
+.footer__contact { display: flex; align-items: flex-start; gap: 12px; }
+.footer__contact i { flex: none; width: 18px; text-align: center; color: var(--orange-light); margin-top: 4px; }
 .footer__heading { font-weight: 700; color: #fff; }
 .footer__social { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
 .footer__icons { display: flex; flex-wrap: wrap; gap: 12px; }
 .footer__icons a { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #5A6788; border-radius: 2px; color: #fff; font-size: 18px; text-decoration: none; }
 .footer__icons a:hover { background: var(--orange); border-color: var(--orange); color: var(--navy-deep); }
-.footer__bottom { margin-top: 40px; border-top: 1px solid #2A3658; padding-top: 24px; font-size: 14px; display: flex; flex-wrap: wrap; gap: 8px 32px; justify-content: space-between; }
+.footer__bottom { margin-top: 40px; border-top: 1px solid #2A3658; padding-top: 24px; font-size: 14px; display: flex; flex-direction: column; gap: 8px; align-items: center; text-align: center; }
 
 @media (max-width: 640px) {
     .container { padding-left: 20px; padding-right: 20px; }
