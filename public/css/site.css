@@ -49,6 +49,24 @@ p { margin: 0; }
 .topbar__item i { color: var(--orange-light); }
 .topbar a { color: #fff; font-weight: 600; text-decoration: none; }
 .topbar a:hover { text-decoration: underline; color: #fff; }
+/* Language switcher (Google Translate runs behind it; its own banner and widget are hidden) */
+.lang { position: relative; display: inline-flex; }
+.lang__toggle { display: inline-flex; align-items: center; gap: 8px; font: inherit; font-weight: 600; color: #fff; background: none; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 10px 0 10px 0; padding: 4px 12px; min-height: 30px; cursor: pointer; }
+.lang__toggle:hover, .lang__toggle[aria-expanded="true"] { border-color: var(--orange-light); }
+.lang__toggle i { color: var(--orange-light); }
+.lang__arrow { font-size: 11px; transition: transform 0.15s ease; }
+.lang__toggle[aria-expanded="true"] .lang__arrow { transform: rotate(180deg); }
+.lang__menu { position: absolute; right: 0; top: calc(100% + 8px); z-index: 80; min-width: 200px; list-style: none; margin: 0; padding: 6px; background: #fff; border-radius: 0 0 16px 0; border-top: 3px solid var(--orange); box-shadow: 0 16px 32px rgba(10, 21, 48, 0.3); }
+.lang__menu[hidden] { display: none; }
+.lang__menu button { display: block; width: 100%; text-align: left; font: inherit; font-size: 15px; font-weight: 600; color: var(--navy); background: none; border: 0; border-radius: 6px; padding: 10px 12px; cursor: pointer; }
+.lang__menu button:hover { background: var(--tint); }
+.lang__menu button.is-active { background: var(--navy); color: #fff; }
+.lang__toggle:focus-visible, .lang__menu button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+@media (max-width: 640px) { .lang__menu { right: 50%; transform: translateX(50%); } }
+#google_translate_element { position: absolute; left: -9999px; top: 0; }
+iframe.skiptranslate, .goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+body { top: 0 !important; }
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
 
 /* Header */
 .header { background: #fff; border-bottom: 4px solid var(--orange); }

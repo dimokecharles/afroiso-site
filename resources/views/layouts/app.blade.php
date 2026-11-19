@@ -88,7 +88,20 @@
         <span class="topbar__item"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>{{ config('afroiso.address') }}</span>
         <div class="topbar__links">
             <a class="topbar__item" href="tel:{{ config('afroiso.phone_link') }}"><i class="fa-solid fa-phone" aria-hidden="true"></i>{{ config('afroiso.phone') }}</a>
-            <a class="topbar__item" href="mailto:{{ config('afroiso.email') }}"><i class="fa-solid fa-envelope" aria-hidden="true"></i>{{ config('afroiso.email') }}</a>
+            <a class="topbar__item notranslate" translate="no" href="mailto:{{ config('afroiso.email') }}"><i class="fa-solid fa-envelope" aria-hidden="true"></i>{{ config('afroiso.email') }}</a>
+            {{-- Language switcher: the page is translated in the browser by Google Translate (see js/site.js) --}}
+            <div class="lang notranslate" translate="no">
+                <button class="lang__toggle" type="button" aria-expanded="false" aria-controls="lang-menu">
+                    <i class="fa-solid fa-globe" aria-hidden="true"></i><span data-lang-current>Language</span><i class="fa-solid fa-chevron-down lang__arrow" aria-hidden="true"></i>
+                </button>
+                <ul class="lang__menu" id="lang-menu" hidden>
+                    <li><button type="button" data-lang="en" lang="en">English</button></li>
+                    <li><button type="button" data-lang="zh-CN" lang="zh">中文 (Chinese)</button></li>
+                    <li><button type="button" data-lang="fr" lang="fr">Français (French)</button></li>
+                    <li><button type="button" data-lang="pt" lang="pt">Português (Portuguese)</button></li>
+                    <li><button type="button" data-lang="sn" lang="sn">ChiShona (Shona)</button></li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -231,6 +244,7 @@
 </div>
 @endif
 
+<div id="google_translate_element" aria-hidden="true"></div>
 <script src="{{ asset('js/site.js') }}" defer></script>
 </body>
 </html>

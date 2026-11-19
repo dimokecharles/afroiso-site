@@ -128,3 +128,85 @@
     window.addEventListener('load', check);
     check();
 })();
+
+/* Language switcher. English is the site's own text. For the other languages the choice is stored in the
+   "googtrans" cookie and Google Translate (loaded only then) translates the page in the browser. */
+(function () {
+    var buttons = document.querySelectorAll('[data-lang]');
+    if (!buttons.length) return;
+
+    function current() {
+        var match = document.cookie.match(/(?:^|;\s*)googtrans=\/en\/([^;]+)/);
+        return match ? decodeURIComponent(match[1]) : 'en';
+    }
+
+    function store(lang) {
+        var host = location.hostname;
+        var base = '.' + host.split('.').slice(-2).join('.');
+        var expired = '; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        // Clear every copy first (Google also writes one on the parent domain), then set the new choice.
+        ['', '; domain=' + host, '; domain=' + base].forEach(function (domain) {
+            document.cookie = 'googtrans=' + expired + '; path=/' + domain;
+        });
+        if (lang !== 'en') document.cookie = 'googtrans=/en/' + lang + '; path=/';
+    }
+
+    var lang = current();
+    var toggle = document.querySelector('.lang__toggle');
+    var menu = document.getElementById('lang-menu');
+    var label = document.querySelector('[data-lang-current]');
+
+    function openMenu(open) {
+        menu.hidden = !open;
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    if (toggle && menu) {
+        toggle.addEventListener('click', function () { openMenu(menu.hidden); });
+        document.addEventListener('click', function (event) {
+            if (!menu.hidden && !event.target.closest('.lang')) openMenu(false);
+        });
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !menu.hidden) { openMenu(false); toggle.focus(); }
+        });
+    }
+
+    for (var i = 0; i < buttons.length; i++) {
+        var active = buttons[i].getAttribute('data-lang') === lang;
+        buttons[i].classList.toggle('is-active', active);
+        buttons[i].setAttribute('aria-pressed', active ? 'true' : 'false');
+        if (active && label && lang !== 'en') label.textContent = buttons[i].textContent.replace(/\s*\(.*\)$/, '');
+        buttons[i].addEventListener('click', function () {
+            var chosen = this.getAttribute('data-lang');
+            if (chosen === current()) return;
+            store(chosen);
+            location.reload();
+        });
+    }
+
+    if (lang === 'en') return;
+
+    window.googleTranslateElementInit = function () {
+        new window.google.translate.TranslateElement(
+            { pageLanguage: 'en', includedLanguages: 'fr,zh-CN,pt,sn', autoDisplay: false },
+            'google_translate_element'
+        );
+    };
+    var script = document.createElement('script');
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.async = true;
+    document.head.appendChild(script);
+
+    // If Google has not started translating by itself, pick the language in its hidden menu.
+    var tries = 0;
+    var timer = window.setInterval(function () {
+        tries++;
+        var done = /\btranslated-/.test(document.documentElement.className);
+        var combo = document.querySelector('.goog-te-combo');
+        if (!done && combo && combo.options.length > 1 && tries > 4) {
+            combo.value = lang;
+            combo.dispatchEvent(new Event('change'));
+        }
+        if (done || tries > 40) window.clearInterval(timer);
+    }, 500);
+})();
