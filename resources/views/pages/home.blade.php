@@ -46,15 +46,40 @@
             <h2>Courses by standard</h2>
             <p>Courses in the ISO management system standards, up to lead auditor level, and in food safety.</p>
         </div>
+        @php
+            // Icon for each card, chosen by a keyword in the card heading or course title.
+            $cardIcons = ['9001' => 'fa-award', '14001' => 'fa-leaf', '45001' => 'fa-helmet-safety', '27001' => 'fa-shield-halved', 'food' => 'fa-utensils', 'auditor' => 'fa-clipboard-check'];
+        @endphp
         <div class="cards">
             @foreach ($cards as $course)
+                @php
+                    $icon = 'fa-certificate';
+                    foreach ($cardIcons as $keyword => $class) {
+                        if (stripos($course->code . ' ' . $course->title, (string) $keyword) !== false) {
+                            $icon = $class;
+                            break;
+                        }
+                    }
+                @endphp
                 <article class="card">
-                    <div class="card__title">{{ $course->code }}</div>
+                    <div class="card__icon"><i class="fa-solid {{ $icon }}" aria-hidden="true"></i></div>
+                    <h3 class="card__title">{{ $course->code }}</h3>
                     <div class="card__category">{{ $course->category }}</div>
                     <p>{{ $course->summary }}</p>
-                    <a class="text-link" href="{{ route('courses.show', $course) }}">View course</a>
+                    <ul class="card__meta">
+                        <li><i class="fa-solid fa-laptop" aria-hidden="true"></i>{{ $course->delivery }}</li>
+                        <li><i class="fa-regular fa-calendar" aria-hidden="true"></i>{{ $course->startLabel() }}</li>
+                        <li class="card__fee">{{ $course->feeLabel() }}</li>
+                    </ul>
+                    <a class="card__link" href="{{ route('courses.show', $course) }}">View course<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
                 </article>
             @endforeach
+            <article class="card card--cta">
+                <div class="card__icon"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i></div>
+                <h3 class="card__title">All courses and dates</h3>
+                <p>Compare the start dates and fees for every course we offer, then enrol online.</p>
+                <a class="card__link" href="{{ route('courses.index') }}">View the full list<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </article>
         </div>
     </div>
 </section>
