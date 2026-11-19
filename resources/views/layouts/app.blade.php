@@ -83,14 +83,22 @@
         </div>
 
         @php
-            $social = array_filter(config('afroiso.social', []));
+            // Facebook, LinkedIn, Instagram and WhatsApp always show; the others show once they have a link.
+            // Add the links in .env (SOCIAL_FACEBOOK and so on). An icon without a link stays on the page.
+            $always = ['facebook', 'linkedin', 'instagram', 'whatsapp'];
+            $social = [];
+            foreach (config('afroiso.social', []) as $network => $url) {
+                if ($url || in_array($network, $always, true)) {
+                    $social[$network] = $url;
+                }
+            }
         @endphp
         @if ($social)
             <div class="footer__social">
                 <div class="footer__heading">Follow us</div>
                 <div class="footer__icons">
                     @foreach ($social as $network => $url)
-                        <a href="{{ $url }}" target="_blank" rel="noopener" aria-label="{{ ucfirst(str_replace('-twitter', '', $network)) }}"><i class="fa-brands fa-{{ $network }}" aria-hidden="true"></i></a>
+                        <a href="{{ $url ?: '#' }}" @if ($url) target="_blank" rel="noopener" @endif aria-label="{{ ucfirst(str_replace('-twitter', '', $network)) }}"><i class="fa-brands fa-{{ $network }}" aria-hidden="true"></i></a>
                     @endforeach
                 </div>
             </div>
