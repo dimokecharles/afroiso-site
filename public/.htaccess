@@ -5,6 +5,12 @@
 
     RewriteEngine On
 
+    # Send plain http visitors on the live domain to https (certificate checks are left alone)
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP_HOST} afroisoconsultants\.org$ [NC]
+    RewriteCond %{REQUEST_URI} !^/\.well-known/
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

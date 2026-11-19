@@ -13,7 +13,7 @@ class ExampleTest extends TestCase
     {
         $this->seed();
 
-        foreach (['/', '/about', '/courses', '/courses/lead-auditor', '/consulting', '/publications', '/verify', '/verify?number=NONE', '/contact', '/privacy-policy'] as $url) {
+        foreach (['/', '/about', '/courses', '/courses/lead-auditor', '/courses/iso-9001-quality-management', '/consulting', '/publications', '/verify', '/verify?number=NONE', '/contact', '/privacy-policy'] as $url) {
             $this->get($url)->assertStatus(200);
         }
     }
