@@ -103,20 +103,28 @@
 
 /* Scroll-in animation: elements marked data-reveal get the class "is-in" when they come into view. */
 (function () {
-    var items = document.querySelectorAll('[data-reveal]');
+    var items = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
     if (!items.length) return;
     document.documentElement.classList.add('js');
-    if (!('IntersectionObserver' in window)) {
-        for (var i = 0; i < items.length; i++) items[i].classList.add('is-in');
-        return;
-    }
-    var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-in');
-                observer.unobserve(entry.target);
+
+    function check() {
+        var limit = (window.innerHeight || document.documentElement.clientHeight) * 0.85;
+        items = items.filter(function (item) {
+            var box = item.getBoundingClientRect();
+            if (box.top < limit && box.bottom > 0) {
+                item.classList.add('is-in');
+                return false;
             }
+            return true;
         });
-    }, { threshold: 0.2 });
-    for (var k = 0; k < items.length; k++) observer.observe(items[k]);
+        if (!items.length) {
+            window.removeEventListener('scroll', check);
+            window.removeEventListener('resize', check);
+        }
+    }
+
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check);
+    window.addEventListener('load', check);
+    check();
 })();

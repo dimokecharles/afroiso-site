@@ -14,7 +14,7 @@
             <p>AfroISO Institute &amp; Consultants teaches ISO 9001, ISO 14001, ISO 45001 and ISO/IEC 27001, including lead auditor courses, through our e-learning platform. Our consultants help organisations prepare for certification, and we publish and distribute books and magazines.</p>
             <div class="hero__actions">
                 <a class="btn btn--accent" href="{{ route('courses.index') }}">View training courses</a>
-                <a class="hero__link" href="{{ route('consulting') }}">Ask about consulting</a>
+                <a class="btn btn--light" href="{{ route('consulting') }}">Ask about consulting</a>
             </div>
         </div>
         <aside class="notice">
