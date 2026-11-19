@@ -65,3 +65,38 @@
         input.value = '';
     });
 })();
+
+/* Countdown to the next intake: updates the days, hours, minutes and seconds every second. */
+(function () {
+    var boxes = document.querySelectorAll('[data-countdown]');
+    if (!boxes.length) return;
+
+    function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+    function tick() {
+        var now = Date.now();
+        for (var i = 0; i < boxes.length; i++) {
+            var box = boxes[i];
+            var left = Math.floor((new Date(box.getAttribute('data-countdown')).getTime() - now) / 1000);
+            if (isNaN(left)) continue;
+            if (left <= 0) {
+                box.innerHTML = '<div class="intake__label intake__label--today">Classes have started</div>';
+                box.removeAttribute('data-countdown');
+                continue;
+            }
+            var parts = {
+                days: Math.floor(left / 86400),
+                hours: pad(Math.floor(left % 86400 / 3600)),
+                minutes: pad(Math.floor(left % 3600 / 60)),
+                seconds: pad(left % 60)
+            };
+            for (var unit in parts) {
+                var el = box.querySelector('[data-unit="' + unit + '"]');
+                if (el) el.textContent = parts[unit];
+            }
+        }
+    }
+
+    tick();
+    window.setInterval(tick, 1000);
+})();

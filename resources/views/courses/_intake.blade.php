@@ -15,8 +15,17 @@
     @if ($daysLeft !== null)
         <div class="intake__count">
             @if ($daysLeft > 0)
-                <div class="intake__number">{{ $daysLeft }}</div>
-                <div class="intake__label">{{ $daysLeft === 1 ? 'day' : 'days' }} until<br>classes start</div>
+                {{-- Live countdown to midnight, Harare time, on the start date. The numbers below show first and are then kept up to date by public/js/site.js. --}}
+                <div class="countdown" data-countdown="{{ $nextStart->format('Y-m-d') }}T00:00:00+02:00">
+                    <span class="sr-only">{{ $daysLeft }} {{ $daysLeft === 1 ? 'day' : 'days' }} until classes start</span>
+                    <div class="countdown__units" aria-hidden="true">
+                        <div class="countdown__unit"><strong data-unit="days">{{ $daysLeft }}</strong><span>Days</span></div>
+                        <div class="countdown__unit"><strong data-unit="hours">00</strong><span>Hours</span></div>
+                        <div class="countdown__unit"><strong data-unit="minutes">00</strong><span>Minutes</span></div>
+                        <div class="countdown__unit"><strong data-unit="seconds">00</strong><span>Seconds</span></div>
+                    </div>
+                    <div class="countdown__label">until classes start</div>
+                </div>
             @else
                 <div class="intake__label intake__label--today">Classes start today</div>
             @endif
