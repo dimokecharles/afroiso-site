@@ -153,6 +153,6 @@ class SiteController extends Controller
         ];
         abort_unless(isset($titles[$policy]), 404);
 
-        return view('pages.policy', ['title' => $titles[$policy]]);
+        return view('pages.policy', ['title' => $titles[$policy], 'policy' => $policy]);
     }
 }

@@ -14,6 +14,10 @@ return [
     'uat_user' => env('UAT_USER', 'afroiso'),
     'uat_password' => env('UAT_PASSWORD'),
 
+    // The policy pages show their full text on the live site only when this is on.
+    // Turn it on (POLICIES_PUBLISHED=true in .env) once AfroISO has approved the wording.
+    'policies_published' => (bool) env('POLICIES_PUBLISHED', false),
+
     // Code from Google Search Console (the content value of its HTML tag). Optional.
     'google_site_verification' => env('GOOGLE_SITE_VERIFICATION'),
 
