@@ -13,9 +13,14 @@ class ExampleTest extends TestCase
     {
         $this->seed();
 
-        foreach (['/', '/about', '/courses', '/courses/lead-auditor', '/courses/iso-9001-quality-management', '/consulting', '/publications', '/verify', '/verify?number=NONE', '/contact', '/privacy-policy', '/sitemap.xml'] as $url) {
+        foreach (['/', '/about', '/courses', '/courses/internal-auditor', '/courses/iso-9001-quality-management', '/consulting', '/publications', '/verify', '/verify?number=NONE', '/contact', '/privacy-policy', '/sitemap.xml'] as $url) {
             $this->get($url)->assertStatus(200);
         }
+    }
+
+    public function test_old_lead_auditor_address_redirects(): void
+    {
+        $this->get('/courses/lead-auditor')->assertRedirect('/courses/internal-auditor');
     }
 
     public function test_enquiry_is_saved(): void
