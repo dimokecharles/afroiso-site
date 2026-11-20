@@ -4,7 +4,12 @@
 
 cd "$(dirname "$0")" || exit 1
 REPO="$(pwd)"
-WEB="$HOME/public_html"
+
+# Reads one setting from .env (empty when the file or the line is missing).
+env_value() {
+    [ -f .env ] || return 0
+    grep -E "^$1=" .env | tail -n 1 | cut -d= -f2- | tr -d '"\r' | sed "s/^'//; s/'\$//"
+}
 
 echo ""
 echo "===== Deploy started $(date) in $REPO ====="
@@ -61,7 +66,15 @@ if [ ! -f storage/app/.seeded ]; then
     "$PHP" artisan db:seed --force && touch storage/app/.seeded
 fi
 
-# 6. Publish the public files into public_html and point its index.php at this project.
+# 6. Publish the public files into the web folder and point its index.php at this project.
+#    The live site uses public_html. A UAT copy sets DEPLOY_PUBLIC_DIR in its own .env.
+WEB_DIR="$(env_value DEPLOY_PUBLIC_DIR)"
+case "$WEB_DIR" in
+    "") WEB="$HOME/public_html" ;;
+    /*) WEB="$WEB_DIR" ;;
+    *) WEB="$HOME/$WEB_DIR" ;;
+esac
+echo "Publishing to: $WEB"
 mkdir -p "$WEB/uploads"
 cp -R public/. "$WEB/"
 cat > "$WEB/index.php" <<PHPFILE
@@ -83,6 +96,12 @@ require \$base . '/vendor/autoload.php';
 \$app->usePublicPath(__DIR__);
 \$app->handleRequest(Request::capture());
 PHPFILE
+
+# A UAT copy must never be indexed by search engines.
+if [ "$(env_value UAT_MODE)" = "true" ]; then
+    printf 'User-agent: *\nDisallow: /\n' > "$WEB/robots.txt"
+    echo "UAT mode: robots.txt blocks all search engines."
+fi
 
 for leftover in index.html index.htm default.html; do
     if [ -f "$WEB/$leftover" ]; then

@@ -13,7 +13,7 @@
     @endphp
     <title>{{ $fullTitle }}</title>
     <meta name="description" content="@yield('description', 'AfroISO Institute & Consultants in Harare, Zimbabwe: e-learning courses in ISO 9001, ISO 14001, ISO 45001, ISO/IEC 27001 and food safety, internal auditor training, ISO consulting, books and magazines.')">
-    <meta name="robots" content="@yield('robots', 'index, follow')">
+    <meta name="robots" content="{{ config('afroiso.uat') ? 'noindex, nofollow' : trim($__env->yieldContent('robots', 'index, follow')) }}">
     <link rel="canonical" href="{{ url()->current() }}">
     @if (config('afroiso.google_site_verification'))
         <meta name="google-site-verification" content="{{ config('afroiso.google_site_verification') }}">
@@ -81,6 +81,9 @@
     <link rel="stylesheet" href="{{ asset('css/site.css') }}">
 </head>
 <body>
+@if (config('afroiso.uat'))
+    <div class="uat-ribbon notranslate" translate="no">UAT test site. This is not the live website.</div>
+@endif
 <a class="skip-link" href="#main">Skip to content</a>
 
 <div class="topbar">

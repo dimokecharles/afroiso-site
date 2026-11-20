@@ -49,6 +49,8 @@ p { margin: 0; }
 .topbar__item i { color: var(--orange-light); }
 .topbar a { color: #fff; font-weight: 600; text-decoration: none; }
 .topbar a:hover { text-decoration: underline; color: #fff; }
+/* Banner shown only on the UAT (test) copy of the site */
+.uat-ribbon { background: #7A1F1F; color: #fff; text-align: center; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; padding: 7px 16px; }
 /* Language switcher (Google Translate runs behind it; its own banner and widget are hidden) */
 .lang { position: relative; display: inline-flex; }
 .lang__toggle { display: inline-flex; align-items: center; gap: 8px; font: inherit; font-weight: 600; color: #fff; background: none; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 10px 0 10px 0; padding: 4px 12px; min-height: 30px; cursor: pointer; }

@@ -7,6 +7,13 @@ return [
     'phone_link' => '+263718781215',
     'email' => 'info@afroisoconsultants.org',
 
+    // UAT (test) copy of the site. Leave UAT_MODE off on the live site.
+    // When it is on, the site shows a test banner, is hidden from search engines,
+    // and asks for the UAT_USER / UAT_PASSWORD login if a password is set.
+    'uat' => (bool) env('UAT_MODE', false),
+    'uat_user' => env('UAT_USER', 'afroiso'),
+    'uat_password' => env('UAT_PASSWORD'),
+
     // Code from Google Search Console (the content value of its HTML tag). Optional.
     'google_site_verification' => env('GOOGLE_SITE_VERIFICATION'),
 
