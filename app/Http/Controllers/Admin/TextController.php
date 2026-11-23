@@ -64,7 +64,7 @@ class TextController extends Controller
 
     private function item(string $key): array
     {
-        $item = config('texts.items.' . $key);
+        $item = config('texts.items')[$key] ?? null;
         abort_if($item === null, 404);
 
         return $item;

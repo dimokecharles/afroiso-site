@@ -15,7 +15,7 @@ class SiteText
 
     public static function get(string $key): string
     {
-        return self::saved()[$key] ?? (string) config('texts.items.' . $key . '.default', '');
+        return self::saved()[$key] ?? (string) (config('texts.items')[$key]['default'] ?? '');
     }
 
     /** The saved wording only, or null when the built-in wording is still in use. */
