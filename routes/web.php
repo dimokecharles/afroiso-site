@@ -46,6 +46,11 @@ Route::prefix('admin')->group(function () {
             Route::resource('courses', Admin\CourseController::class)->except('show');
             Route::resource('publications', Admin\PublicationController::class)->except('show');
             Route::resource('certificates', Admin\CertificateController::class)->except('show');
+            Route::get('certificates/{certificate}/qr', [Admin\CertificateController::class, 'qr'])->name('certificates.qr');
+            Route::get('texts', [Admin\TextController::class, 'index'])->name('texts.index');
+            Route::post('texts/publish', [Admin\TextController::class, 'publish'])->name('texts.publish');
+            Route::get('texts/{key}', [Admin\TextController::class, 'edit'])->name('texts.edit');
+            Route::put('texts/{key}', [Admin\TextController::class, 'update'])->name('texts.update');
         });
         Route::middleware('area:enquiries')->group(function () {
             Route::resource('enquiries', Admin\EnquiryController::class)->only(['index', 'show', 'update', 'destroy']);

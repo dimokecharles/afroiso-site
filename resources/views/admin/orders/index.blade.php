@@ -48,7 +48,7 @@
                         <td>{{ $order->customer_name }}</td>
                         <td>{{ $order->description }}</td>
                         <td>{{ $order->amountLabel() }}</td>
-                        <td><span @class(['tag', 'tag--ok' => $order->isPaid(), 'tag--bad' => in_array($order->status, ['failed', 'cancelled'])])>{{ $order->statusLabel() }}</span></td>
+                        <td><span @class(['tag', 'tag--ok' => $order->isPaid(), 'tag--bad' => in_array($order->status, ['failed', 'cancelled']), 'tag--off' => $order->status === 'refunded'])>{{ $order->statusLabel() }}</span></td>
                         <td class="actions"><a href="{{ route('admin.orders.show', $order) }}">Open</a></td>
                     </tr>
                 @empty

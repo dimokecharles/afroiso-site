@@ -18,12 +18,12 @@ class StaffRolesTest extends TestCase
     public function test_each_role_opens_only_its_own_areas(): void
     {
         $this->seed();
-        $pages = ['/admin/contacts', '/admin/enquiries', '/admin/enrolments', '/admin/orders', '/admin/projects', '/admin/courses', '/admin/certificates', '/admin/staff'];
+        $pages = ['/admin/contacts', '/admin/enquiries', '/admin/enrolments', '/admin/orders', '/admin/projects', '/admin/courses', '/admin/certificates', '/admin/texts', '/admin/staff'];
         $allowed = [
             'admin' => $pages,
             'finance' => ['/admin/contacts', '/admin/enrolments', '/admin/orders', '/admin/projects'],
             'sales' => ['/admin/contacts', '/admin/enquiries', '/admin/enrolments', '/admin/projects'],
-            'content' => ['/admin/courses', '/admin/certificates'],
+            'content' => ['/admin/courses', '/admin/certificates', '/admin/texts'],
         ];
 
         foreach ($allowed as $role => $open) {

@@ -27,6 +27,7 @@
             ['Courses', 'admin.courses.index', 'admin.courses.*', 'fa-graduation-cap', 'content'],
             ['Publications', 'admin.publications.index', 'admin.publications.*', 'fa-book-open', 'content'],
             ['Certificates', 'admin.certificates.index', 'admin.certificates.*', 'fa-award', 'content'],
+            ['Website text', 'admin.texts.index', 'admin.texts.*', 'fa-pen-to-square', 'content'],
         ],
         'Settings' => [
             ['Staff logins', 'admin.staff.index', 'admin.staff.*', 'fa-users-gear', 'staff'],

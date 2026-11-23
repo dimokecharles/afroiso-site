@@ -8,7 +8,7 @@
 </div>
 <div class="panel">
     <dl class="detail">
-        <div><dt>Status</dt><dd><span @class(['tag', 'tag--ok' => $order->isPaid(), 'tag--bad' => in_array($order->status, ['failed', 'cancelled'])])>{{ $order->statusLabel() }}</span></dd></div>
+        <div><dt>Status</dt><dd><span @class(['tag', 'tag--ok' => $order->isPaid(), 'tag--bad' => in_array($order->status, ['failed', 'cancelled']), 'tag--off' => $order->status === 'refunded'])>{{ $order->statusLabel() }}</span></dd></div>
         <div><dt>For</dt><dd>{{ $order->description }}</dd></div>
         <div><dt>Amount</dt><dd>{{ $order->amountLabel() }}</dd></div>
         <div><dt>Customer</dt><dd>
@@ -29,6 +29,9 @@
         <div><dt>Created</dt><dd>{{ $order->created_at->format('j F Y, H:i') }}</dd></div>
         @if ($order->paid_at)
             <div><dt>Paid</dt><dd>{{ $order->paid_at->format('j F Y, H:i') }} ({{ $order->gateway }}{{ $order->gateway_reference ? ', ' . $order->gateway_reference : '' }})</dd></div>
+        @endif
+        @if ($order->refunded_at)
+            <div><dt>Refunded</dt><dd>{{ $order->refunded_at->format('j F Y, H:i') }}</dd></div>
         @endif
         @if ($order->notes)
             <div><dt>Internal notes</dt><dd>{!! nl2br(e($order->notes)) !!}</dd></div>
@@ -57,6 +60,15 @@
                 <button class="btn btn--plain" type="submit" name="action" value="cancel">Cancel</button>
             </form>
         </div>
+    @endif
+    @if ($order->isPaid())
+        <div class="form__actions" style="margin-top: 16px">
+            <form method="post" action="{{ route('admin.orders.update', $order) }}" onsubmit="return confirm('Mark this payment as refunded? Do this after the money has been returned to the customer. It cannot be changed back here.')">
+                @csrf @method('put')
+                <button class="btn btn--plain" type="submit" name="action" value="refund">Mark as refunded</button>
+            </form>
+        </div>
+        <p class="muted">Marking as refunded only records it here and takes the amount out of the revenue figures. Return the money through the bank or payment provider first.</p>
     @endif
 </div>
 @endsection

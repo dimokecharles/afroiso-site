@@ -14,16 +14,17 @@ class Order extends Model
 {
     public const TYPES = ['enrolment' => 'Course enrolment', 'publication' => 'Publication order', 'invoice' => 'Consulting invoice'];
 
-    public const STATUSES = ['pending' => 'Awaiting payment', 'paid' => 'Paid', 'failed' => 'Payment failed', 'cancelled' => 'Cancelled'];
+    public const STATUSES = ['pending' => 'Awaiting payment', 'paid' => 'Paid', 'failed' => 'Payment failed', 'cancelled' => 'Cancelled', 'refunded' => 'Refunded'];
 
     protected $fillable = [
         'type', 'course_id', 'publication_id', 'description', 'customer_name', 'customer_email', 'customer_phone',
-        'organisation', 'amount', 'currency', 'status', 'gateway', 'gateway_reference', 'paid_at', 'notes', 'contact_id', 'project_id',
+        'organisation', 'amount', 'currency', 'status', 'gateway', 'gateway_reference', 'paid_at', 'refunded_at', 'notes', 'contact_id', 'project_id',
     ];
 
     protected $casts = [
         'amount' => 'decimal:2',
         'paid_at' => 'datetime',
+        'refunded_at' => 'datetime',
     ];
 
     protected static function booted(): void
@@ -73,6 +74,12 @@ class Order extends Model
     public function markPaid(string $gateway, ?string $gatewayReference = null): void
     {
         $this->update(['status' => 'paid', 'gateway' => $gateway, 'gateway_reference' => $gatewayReference, 'paid_at' => now()]);
+    }
+
+    /** Record that the money was given back. This does not move any money; the refund itself is made at the bank or payment provider. */
+    public function markRefunded(): void
+    {
+        $this->update(['status' => 'refunded', 'refunded_at' => now()]);
     }
 
     public function amountLabel(): string

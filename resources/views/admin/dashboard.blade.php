@@ -5,7 +5,7 @@
     $money = fn ($value) => 'US$' . number_format((float) $value, $value == round($value) ? 0 : 2);
     $change = $revenueLastMonth > 0 ? round(($revenueThisMonth - $revenueLastMonth) / $revenueLastMonth * 100) : null;
     $conversion = $enquirerCount > 0 ? round($convertedCount / $enquirerCount * 100) : null;
-    $statusIcons = ['paid' => 'fa-circle-check', 'pending' => 'fa-clock', 'failed' => 'fa-circle-xmark', 'cancelled' => 'fa-ban'];
+    $statusIcons = ['paid' => 'fa-circle-check', 'pending' => 'fa-clock', 'failed' => 'fa-circle-xmark', 'cancelled' => 'fa-ban', 'refunded' => 'fa-rotate-left'];
     $topCourseMax = max(1, $topCourses->max('revenue') ?? 0);
     $topPublicationMax = max(1, $topPublications->max('revenue') ?? 0);
     $interestMax = max(1, $courseInterest->max('enquiries') ?? 0);
@@ -215,7 +215,7 @@
                             <td><a href="{{ route('admin.orders.show', $order) }}">{{ $order->reference }}</a></td>
                             <td>{{ $order->customer_name }}</td>
                             <td>{{ $order->amountLabel() }}</td>
-                            <td><span @class(['tag', 'tag--ok' => $order->isPaid(), 'tag--bad' => in_array($order->status, ['failed', 'cancelled'])])>{{ $order->statusLabel() }}</span></td>
+                            <td><span @class(['tag', 'tag--ok' => $order->isPaid(), 'tag--bad' => in_array($order->status, ['failed', 'cancelled']), 'tag--off' => $order->status === 'refunded'])>{{ $order->statusLabel() }}</span></td>
                         </tr>
                     @empty
                         <tr><td colspan="4">No payments or orders yet.</td></tr>

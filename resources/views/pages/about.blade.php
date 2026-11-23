@@ -34,13 +34,13 @@
     <div class="duo__half duo__half--navy">
         <div class="duo__inner">
             <div class="duo__label"><i class="fa-solid fa-eye" aria-hidden="true"></i>Our vision</div>
-            <p>To be Africa's most trusted institute for management system standards, so that African organisations can compete on quality anywhere in the world.</p>
+            <p>{{ \App\Support\SiteText::get('about.vision') }}</p>
         </div>
     </div>
     <div class="duo__half duo__half--orange">
         <div class="duo__inner">
             <div class="duo__label"><i class="fa-solid fa-bullseye" aria-hidden="true"></i>Our mission</div>
-            <p>To make ISO standards practical and within reach for African professionals and organisations, through e-learning, hands-on consulting and clear publications.</p>
+            <p>{{ \App\Support\SiteText::get('about.mission') }}</p>
         </div>
     </div>
 </section>

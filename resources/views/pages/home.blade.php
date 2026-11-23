@@ -10,8 +10,8 @@
     <div class="container hero__inner">
         <div class="hero__text">
             <div class="eyebrow eyebrow--light">ISO training institute and consultancy &middot; Harare</div>
-            <h1>Training the people who build and audit management systems.</h1>
-            <p>AfroISO Institute &amp; Consultants teaches ISO 9001, ISO 14001, ISO 45001 and ISO/IEC 27001, including internal auditor courses, through our e-learning platform. Our consultants help organisations prepare for certification, and we publish and distribute books and magazines.</p>
+            <h1>{{ \App\Support\SiteText::get('home.hero_title') }}</h1>
+            <p>{{ \App\Support\SiteText::get('home.hero_intro') }}</p>
             <div class="hero__actions">
                 <a class="btn btn--accent" href="{{ route('courses.index') }}">View training courses</a>
                 <a class="btn btn--light" href="{{ route('consulting') }}">Ask about consulting</a>

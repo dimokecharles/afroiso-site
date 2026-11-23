@@ -55,7 +55,7 @@
                                 <td>@if ($canPay)<a href="{{ route('admin.orders.show', $invoice) }}">{{ $invoice->reference }}</a>@else{{ $invoice->reference }}@endif</td>
                                 <td>{{ $invoice->description }}</td>
                                 <td>{{ $invoice->amountLabel() }}</td>
-                                <td><span @class(['tag', 'tag--ok' => $invoice->isPaid(), 'tag--bad' => in_array($invoice->status, ['failed', 'cancelled'])])>{{ $invoice->statusLabel() }}</span></td>
+                                <td><span @class(['tag', 'tag--ok' => $invoice->isPaid(), 'tag--bad' => in_array($invoice->status, ['failed', 'cancelled']), 'tag--off' => $invoice->status === 'refunded'])>{{ $invoice->statusLabel() }}</span></td>
                             </tr>
                         @empty
                             <tr><td colspan="4">No invoices for this project yet.</td></tr>

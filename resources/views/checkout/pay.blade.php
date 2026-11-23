@@ -39,6 +39,15 @@
             @elseif ($order->type === 'publication')
                 <p class="pay-note">Our office will send your publication to {{ $order->customer_email }}.</p>
             @endif
+        @elseif ($order->status === 'refunded')
+            <div class="vnotice" role="status">
+                <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+                <div>
+                    <h2>This payment was refunded</h2>
+                    <p>{{ $order->amountLabel() }} for {{ $order->description }} was refunded{{ $order->refunded_at ? ' on ' . $order->refunded_at->format('j F Y') : '' }}. For questions, contact our office and quote reference {{ $order->reference }}.</p>
+                    <a class="btn btn--primary btn--cut" href="{{ route('contact', ['subject' => 'Order ' . $order->reference]) }}">Contact our office</a>
+                </div>
+            </div>
         @elseif ($order->status === 'cancelled')
             <div class="vnotice" role="status">
                 <i class="fa-solid fa-ban" aria-hidden="true"></i>

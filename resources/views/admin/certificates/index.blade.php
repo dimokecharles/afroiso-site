@@ -20,6 +20,7 @@
                         <td><span @class(['tag', 'tag--ok' => $certificate->status === 'valid', 'tag--bad' => $certificate->status !== 'valid'])>{{ $certificate->status === 'valid' ? 'Valid' : 'Withdrawn' }}</span></td>
                         <td class="actions">
                             <a href="{{ route('admin.certificates.edit', $certificate) }}">Edit</a>
+                            <a href="{{ route('admin.certificates.qr', [$certificate, 'download' => 1]) }}">QR code</a>
                             <form method="post" action="{{ route('admin.certificates.destroy', $certificate) }}" onsubmit="return confirm('Delete this certificate?')">
                                 @csrf @method('delete')
                                 <button class="link-danger" type="submit">Delete</button>

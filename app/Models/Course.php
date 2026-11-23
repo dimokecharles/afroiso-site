@@ -43,47 +43,7 @@ class Course extends Model
      */
     public function descriptionHtml(): string
     {
-        $html = '';
-        $blocks = preg_split('/\R\s*\R/', trim(str_replace("\r\n", "\n", (string) $this->description)));
-
-        foreach ($blocks as $block) {
-            $paragraph = [];
-            $items = [];
-            $flush = function () use (&$html, &$paragraph, &$items) {
-                if ($paragraph) {
-                    $html .= '<p>' . implode('<br>', $paragraph) . '</p>';
-                    $paragraph = [];
-                }
-                if ($items) {
-                    $html .= '<ul><li>' . implode('</li><li>', $items) . '</li></ul>';
-                    $items = [];
-                }
-            };
-
-            foreach (explode("\n", $block) as $line) {
-                $line = trim($line);
-                if ($line === '') {
-                    continue;
-                }
-                if (str_starts_with($line, '## ')) {
-                    $flush();
-                    $html .= '<h2>' . e(substr($line, 3)) . '</h2>';
-                } elseif (str_starts_with($line, '- ')) {
-                    if ($paragraph) {
-                        $flush();
-                    }
-                    $items[] = e(substr($line, 2));
-                } else {
-                    if ($items) {
-                        $flush();
-                    }
-                    $paragraph[] = e($line);
-                }
-            }
-            $flush();
-        }
-
-        return $html;
+        return \App\Support\SimpleText::toHtml($this->description);
     }
 
     public function startLabel(): string

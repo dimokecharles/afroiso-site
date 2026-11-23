@@ -182,3 +182,9 @@ h3 { font-size: 15px; margin: 0 0 8px; color: #0F1E45; }
 .received summary { cursor: pointer; font-weight: 600; color: #0F1E45; }
 .received form { margin-top: 14px; }
 @media (max-width: 640px) { .inbox__meta { align-items: flex-start; } }
+
+/* Certificate QR code */
+.qr { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+.qr__code { background: #fff; border: 1px solid #D9DEE8; padding: 6px; flex: none; }
+.qr > div { flex: 1 1 280px; }
+.status-list__item--refunded i { color: #4A5568; }

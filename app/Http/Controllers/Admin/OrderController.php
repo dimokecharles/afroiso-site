@@ -79,10 +79,10 @@ class OrderController extends Controller
         return back()->with('status', 'Pay link emailed to ' . $order->customer_email . '.');
     }
 
-    /** Record a payment received outside the website, or cancel an order. */
+    /** Record a payment received outside the website, cancel an order, or record a refund. */
     public function update(Request $request, Order $order)
     {
-        $action = $request->validate(['action' => ['required', 'in:mark-paid,cancel']])['action'];
+        $action = $request->validate(['action' => ['required', 'in:mark-paid,cancel,refund']])['action'];
 
         if ($action === 'mark-paid' && $order->canBePaid()) {
             $order->markPaid('manual', $request->user()->email);
@@ -94,6 +94,12 @@ class OrderController extends Controller
             $order->update(['status' => 'cancelled']);
 
             return back()->with('status', 'Order cancelled.');
+        }
+
+        if ($action === 'refund' && $order->isPaid()) {
+            $order->markRefunded();
+
+            return back()->with('status', 'Marked as refunded. This only records the refund: the money itself must be returned through the bank or payment provider.');
         }
 
         return back();

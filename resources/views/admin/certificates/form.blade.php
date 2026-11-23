@@ -38,4 +38,15 @@
         <div class="form__actions"><button class="btn" type="submit">Save certificate</button></div>
     </form>
 </div>
+@if ($certificate->exists)
+    <div class="panel qr">
+        <img class="qr__code" src="{{ route('admin.certificates.qr', $certificate) }}" width="180" height="180" alt="QR code for certificate {{ $certificate->number }}">
+        <div>
+            <h2>QR code</h2>
+            <p>Print this on the certificate. Scanning it with a phone camera opens the Verify page and shows whether certificate {{ $certificate->number }} is valid.</p>
+            <p class="muted">It points to {{ route('verify', ['number' => $certificate->number]) }}. If the certificate number is changed, download the QR code again.</p>
+            <div class="form__actions"><a class="btn btn--plain" href="{{ route('admin.certificates.qr', [$certificate, 'download' => 1]) }}">Download QR code</a></div>
+        </div>
+    </div>
+@endif
 @endsection
