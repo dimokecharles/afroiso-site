@@ -49,7 +49,12 @@
                 <div><dt>Start date</dt><dd>{{ $course->startLabel() }}</dd></div>
                 <div><dt>Fee</dt><dd>{{ $course->feeLabel() }}</dd></div>
             </dl>
-            <a class="btn btn--primary" href="{{ route('contact', ['subject' => 'Enrol: ' . $course->title, 'interest' => 'A training course']) }}">Enrol on this course</a>
+            @if ($course->fee !== null)
+                <a class="btn btn--accent btn--cut" href="{{ route('enrol.create', $course) }}">Enrol and pay<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <a class="text-link" href="{{ route('contact', ['subject' => 'Enrol: ' . $course->title, 'interest' => 'A training course']) }}">Or send an enquiry</a>
+            @else
+                <a class="btn btn--primary" href="{{ route('contact', ['subject' => 'Enrol: ' . $course->title, 'interest' => 'A training course']) }}">Enrol on this course</a>
+            @endif
         </aside>
     </div>
 </section>

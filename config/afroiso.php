@@ -18,6 +18,10 @@ return [
     // Turn it on (POLICIES_PUBLISHED=true in .env) once AfroISO has approved the wording.
     'policies_published' => (bool) env('POLICIES_PUBLISHED', false),
 
+    // How the pay page takes money. "none" saves the order and tells the customer the office will be in touch.
+    // "test" is a stand-in gateway that only works on the UAT site. The real provider is added here once chosen.
+    'payment_gateway' => env('PAYMENT_GATEWAY', 'none'),
+
     // Code from Google Search Console (the content value of its HTML tag). Optional.
     'google_site_verification' => env('GOOGLE_SITE_VERIFICATION'),
 

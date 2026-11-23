@@ -7,7 +7,9 @@
     $magazines = $publications->where('type', 'magazine')->values();
     $featured = $books->first();
     $otherBooks = $books->slice(1);
-    $orderLink = fn ($publication) => route('contact', ['subject' => 'Order: ' . $publication->title, 'interest' => 'Ordering a book or magazine']);
+    $orderLink = fn ($publication) => $publication->price !== null
+        ? route('buy.create', $publication)
+        : route('contact', ['subject' => 'Order: ' . $publication->title, 'interest' => 'Ordering a book or magazine']);
 @endphp
 
 @section('content')
@@ -44,7 +46,7 @@
             @endif
             <div class="spotlight__buy">
                 <div class="spotlight__price">{{ $featured->priceLabel() }}</div>
-                <a class="btn btn--accent btn--cut" href="{{ $orderLink($featured) }}">Order this book<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                <a class="btn btn--accent btn--cut" href="{{ $orderLink($featured) }}">Buy this book<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
             </div>
         </div>
     </div>
@@ -76,7 +78,7 @@
                     @endif
                     <div class="shelf__buy">
                         <span class="shelf__price">{{ $publication->priceLabel() }}</span>
-                        <a class="btn btn--primary btn--cut" href="{{ $orderLink($publication) }}">Order<span class="sr-only"> {{ $publication->title }}</span></a>
+                        <a class="btn btn--primary btn--cut" href="{{ $orderLink($publication) }}">Buy<span class="sr-only"> {{ $publication->title }}</span></a>
                     </div>
                 </article>
             @endforeach
@@ -109,7 +111,7 @@
                     @endif
                     <div class="shelf__buy">
                         <span class="shelf__price">{{ $publication->priceLabel() }}</span>
-                        <a class="btn btn--primary btn--cut" href="{{ $orderLink($publication) }}">Order<span class="sr-only"> {{ $publication->title }}</span></a>
+                        <a class="btn btn--primary btn--cut" href="{{ $orderLink($publication) }}">Buy<span class="sr-only"> {{ $publication->title }}</span></a>
                     </div>
                 </article>
             @endforeach
@@ -123,12 +125,12 @@
     <div class="container">
         <div class="section__head section__head--center">
             <div class="eyebrow eyebrow--light">Ordering</div>
-            <h2>How to order</h2>
+            <h2>How to buy</h2>
         </div>
         <ol class="order-steps">
-            <li><span>1</span><strong>Choose a publication</strong><p>Press Order on the book or magazine issue you want.</p></li>
-            <li><span>2</span><strong>Send the order form</strong><p>Your choice is already filled in. Add your name and contact details.</p></li>
-            <li><span>3</span><strong>We reply with the details</strong><p>Our office sends you the payment and delivery details.</p></li>
+            <li><span>1</span><strong>Choose a publication</strong><p>Press Buy on the book or magazine issue you want.</p></li>
+            <li><span>2</span><strong>Enter your details</strong><p>Give us your name and the email address the publication should go to.</p></li>
+            <li><span>3</span><strong>Pay and receive it</strong><p>Pay on the secure payment page. Our office then sends your publication.</p></li>
         </ol>
     </div>
 </section>

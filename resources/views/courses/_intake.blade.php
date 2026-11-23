@@ -55,7 +55,7 @@
             <div class="row__date"><i class="fa-regular fa-calendar" aria-hidden="true"></i>{{ $course->start_date ? $course->start_date->format('j M Y') : 'To be announced' }}</div>
             <div class="row__delivery"><i class="fa-solid fa-laptop" aria-hidden="true"></i>{{ $course->delivery }}</div>
             <div class="row__fee">{{ $course->feeLabel() }}</div>
-            <a class="btn btn--accent btn--cut row__enrol" href="{{ route('contact', ['subject' => 'Enrol: ' . $course->title, 'interest' => 'A training course']) }}">Enrol<span class="sr-only"> on {{ $course->title }}</span></a>
+            <a class="btn btn--accent btn--cut row__enrol" href="{{ $course->fee !== null ? route('enrol.create', $course) : route('contact', ['subject' => 'Enrol: ' . $course->title, 'interest' => 'A training course']) }}">Enrol<span class="sr-only"> on {{ $course->title }}</span></a>
         </div>
     @empty
         <div class="row">Course dates will be published here soon.</div>

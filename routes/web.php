@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,14 @@ Route::get('/courses/{course}', [SiteController::class, 'course'])->name('course
 Route::get('/publications', [SiteController::class, 'publications'])->name('publications');
 Route::get('/verify', [SiteController::class, 'verify'])->name('verify')->middleware('throttle:30,1');
 Route::get('/contact', [SiteController::class, 'contact'])->name('contact');
+// Enrol on a course or buy a publication, then pay on the order's private pay page
+Route::get('/courses/{course}/enrol', [CheckoutController::class, 'enrol'])->name('enrol.create');
+Route::post('/courses/{course}/enrol', [CheckoutController::class, 'storeEnrolment'])->name('enrol.store')->middleware('throttle:10,1');
+Route::get('/publications/{publication}/buy', [CheckoutController::class, 'buy'])->name('buy.create');
+Route::post('/publications/{publication}/buy', [CheckoutController::class, 'storeOrder'])->name('buy.store')->middleware('throttle:10,1');
+Route::get('/pay/{order:token}', [CheckoutController::class, 'show'])->name('pay.show');
+Route::post('/pay/{order:token}', [CheckoutController::class, 'pay'])->name('pay.process')->middleware('throttle:20,1');
+
 Route::get('/sitemap.xml', [SiteController::class, 'sitemap'])->name('sitemap');
 Route::post('/contact', [SiteController::class, 'sendEnquiry'])->name('contact.send')->middleware('throttle:5,1');
 Route::get('/{policy}', [SiteController::class, 'policy'])
@@ -32,5 +41,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('publications', Admin\PublicationController::class)->except('show');
         Route::resource('certificates', Admin\CertificateController::class)->except('show');
         Route::resource('enquiries', Admin\EnquiryController::class)->only(['index', 'show', 'destroy']);
+        Route::resource('orders', Admin\OrderController::class)->only(['index', 'create', 'store', 'show', 'update']);
+        Route::post('orders/{order}/send', [Admin\OrderController::class, 'send'])->name('orders.send');
     });
 });

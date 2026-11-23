@@ -14,6 +14,7 @@
         <a class="bar__brand" href="{{ route('admin.dashboard') }}">AfroISO admin</a>
         <nav aria-label="Admin">
             <a href="{{ route('admin.enquiries.index') }}" @class(['is-active' => request()->routeIs('admin.enquiries.*')])>Enquiries</a>
+            <a href="{{ route('admin.orders.index') }}" @class(['is-active' => request()->routeIs('admin.orders.*')])>Payments</a>
             <a href="{{ route('admin.courses.index') }}" @class(['is-active' => request()->routeIs('admin.courses.*')])>Courses</a>
             <a href="{{ route('admin.publications.index') }}" @class(['is-active' => request()->routeIs('admin.publications.*')])>Publications</a>
             <a href="{{ route('admin.certificates.index') }}" @class(['is-active' => request()->routeIs('admin.certificates.*')])>Certificates</a>

@@ -13,7 +13,7 @@
                     <p>{!! nl2br(e($publication->description)) !!}</p>
                 @endif
                 <div class="pub__price">{{ $publication->priceLabel() }}</div>
-                <a class="btn btn--accent" href="{{ route('contact', ['subject' => 'Order: ' . $publication->title, 'interest' => 'Ordering a book or magazine']) }}">Order this {{ strtolower($publication->typeLabel()) }}</a>
+                <a class="btn btn--accent" href="{{ $publication->price !== null ? route('buy.create', $publication) : route('contact', ['subject' => 'Order: ' . $publication->title, 'interest' => 'Ordering a book or magazine']) }}">Buy this {{ strtolower($publication->typeLabel()) }}</a>
             </div>
         </article>
     @endforeach
