@@ -146,3 +146,9 @@ h3 { font-size: 15px; margin: 0 0 8px; color: #0F1E45; }
 .two-col { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 24px; align-items: start; }
 .two-col .panel + .panel { margin-top: 24px; }
 @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+.top__user { text-decoration: none; }
+.top__user:hover { color: #0F1E45; }
+.side__foot a.is-active { background: rgba(255, 255, 255, 0.12); color: #fff; }
+.role-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.role-list strong { color: #0F1E45; }
+.tag--off { background: #E6EAF1; color: #4A5568; }

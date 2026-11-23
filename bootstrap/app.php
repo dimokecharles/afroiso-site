@@ -12,6 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias(['area' => \App\Http\Middleware\RequireArea::class]);
         $middleware->web(append: [
             \App\Http\Middleware\UatGate::class,
             \App\Http\Middleware\TrackPageView::class,

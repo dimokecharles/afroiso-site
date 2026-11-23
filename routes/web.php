@@ -34,17 +34,34 @@ Route::prefix('admin')->group(function () {
     Route::get('/login', [Admin\AuthController::class, 'show'])->name('login');
     Route::post('/login', [Admin\AuthController::class, 'login'])->name('login.attempt')->middleware('throttle:10,1');
 
-    Route::middleware('auth')->name('admin.')->group(function () {
+    Route::middleware(['auth', 'area:self'])->name('admin.')->group(function () {
         Route::post('/logout', [Admin\AuthController::class, 'logout'])->name('logout');
         Route::get('/', Admin\DashboardController::class)->name('dashboard');
-        Route::resource('courses', Admin\CourseController::class)->except('show');
-        Route::resource('publications', Admin\PublicationController::class)->except('show');
-        Route::resource('certificates', Admin\CertificateController::class)->except('show');
-        Route::resource('enquiries', Admin\EnquiryController::class)->only(['index', 'show', 'update', 'destroy']);
-        Route::resource('contacts', Admin\ContactController::class)->except('destroy');
-        Route::get('enrolments', [Admin\EnrolmentController::class, 'index'])->name('enrolments.index');
+        Route::get('account', [Admin\AccountController::class, 'edit'])->name('account');
+        Route::put('account', [Admin\AccountController::class, 'update'])->name('account.update');
         Route::post('notes', [Admin\NoteController::class, 'store'])->name('notes.store');
-        Route::resource('orders', Admin\OrderController::class)->only(['index', 'create', 'store', 'show', 'update']);
-        Route::post('orders/{order}/send', [Admin\OrderController::class, 'send'])->name('orders.send');
+
+        // Each group below is one area of the panel. A staff member's role decides which areas they can open.
+        Route::middleware('area:content')->group(function () {
+            Route::resource('courses', Admin\CourseController::class)->except('show');
+            Route::resource('publications', Admin\PublicationController::class)->except('show');
+            Route::resource('certificates', Admin\CertificateController::class)->except('show');
+        });
+        Route::middleware('area:enquiries')->group(function () {
+            Route::resource('enquiries', Admin\EnquiryController::class)->only(['index', 'show', 'update', 'destroy']);
+        });
+        Route::middleware('area:contacts')->group(function () {
+            Route::resource('contacts', Admin\ContactController::class)->except('destroy');
+        });
+        Route::middleware('area:enrolments')->group(function () {
+            Route::get('enrolments', [Admin\EnrolmentController::class, 'index'])->name('enrolments.index');
+        });
+        Route::middleware('area:payments')->group(function () {
+            Route::resource('orders', Admin\OrderController::class)->only(['index', 'create', 'store', 'show', 'update']);
+            Route::post('orders/{order}/send', [Admin\OrderController::class, 'send'])->name('orders.send');
+        });
+        Route::middleware('area:staff')->group(function () {
+            Route::resource('staff', Admin\StaffController::class)->except(['show', 'destroy']);
+        });
     });
 });

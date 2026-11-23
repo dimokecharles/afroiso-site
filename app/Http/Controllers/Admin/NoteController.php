@@ -18,6 +18,8 @@ class NoteController extends Controller
             'body' => ['required', 'string', 'max:5000'],
         ]);
 
+        abort_unless($request->user()->canAccess($data['on'] === 'contact' ? 'contacts' : 'enquiries'), 403);
+
         $record = $data['on'] === 'contact' ? Contact::findOrFail($data['id']) : Enquiry::findOrFail($data['id']);
         $record->notes()->create(['body' => $data['body'], 'user_id' => $request->user()->id]);
 

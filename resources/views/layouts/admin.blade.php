@@ -13,20 +13,25 @@
 @php
     $menu = [
         'Overview' => [
-            ['Dashboard', 'admin.dashboard', 'admin.dashboard', 'fa-gauge-high'],
+            ['Dashboard', 'admin.dashboard', 'admin.dashboard', 'fa-gauge-high', 'dashboard'],
         ],
         'Customers' => [
-            ['Contacts', 'admin.contacts.index', 'admin.contacts.*', 'fa-address-book'],
-            ['Enquiries and leads', 'admin.enquiries.index', 'admin.enquiries.*', 'fa-inbox'],
-            ['Enrolments', 'admin.enrolments.index', 'admin.enrolments.*', 'fa-user-graduate'],
-            ['Payments', 'admin.orders.index', 'admin.orders.*', 'fa-credit-card'],
+            ['Contacts', 'admin.contacts.index', 'admin.contacts.*', 'fa-address-book', 'contacts'],
+            ['Enquiries and leads', 'admin.enquiries.index', 'admin.enquiries.*', 'fa-inbox', 'enquiries'],
+            ['Enrolments', 'admin.enrolments.index', 'admin.enrolments.*', 'fa-user-graduate', 'enrolments'],
+            ['Payments', 'admin.orders.index', 'admin.orders.*', 'fa-credit-card', 'payments'],
         ],
         'Content' => [
-            ['Courses', 'admin.courses.index', 'admin.courses.*', 'fa-graduation-cap'],
-            ['Publications', 'admin.publications.index', 'admin.publications.*', 'fa-book-open'],
-            ['Certificates', 'admin.certificates.index', 'admin.certificates.*', 'fa-award'],
+            ['Courses', 'admin.courses.index', 'admin.courses.*', 'fa-graduation-cap', 'content'],
+            ['Publications', 'admin.publications.index', 'admin.publications.*', 'fa-book-open', 'content'],
+            ['Certificates', 'admin.certificates.index', 'admin.certificates.*', 'fa-award', 'content'],
+        ],
+        'Settings' => [
+            ['Staff logins', 'admin.staff.index', 'admin.staff.*', 'fa-users-gear', 'staff'],
         ],
     ];
+    // Show only the parts of the panel this person's role includes.
+    $menu = array_filter(array_map(fn ($links) => array_filter($links, fn ($link) => auth()->user()?->canAccess($link[4])), $menu));
 @endphp
 <a class="skip" href="#main">Skip to content</a>
 <div class="shell">
@@ -38,12 +43,13 @@
         <nav aria-label="Admin">
             @foreach ($menu as $group => $links)
                 <div class="side__group">{{ $group }}</div>
-                @foreach ($links as [$label, $route, $pattern, $icon])
+                @foreach ($links as [$label, $route, $pattern, $icon, $area])
                     <a href="{{ route($route) }}" @class(['is-active' => request()->routeIs($pattern)]) @if (request()->routeIs($pattern)) aria-current="page" @endif><i class="fa-solid {{ $icon }}" aria-hidden="true"></i>{{ $label }}</a>
                 @endforeach
             @endforeach
         </nav>
         <div class="side__foot">
+            <a href="{{ route('admin.account') }}" @class(['is-active' => request()->routeIs('admin.account')])><i class="fa-solid fa-key" aria-hidden="true"></i>My password</a>
             <a href="{{ route('home') }}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>View website</a>
             <form method="post" action="{{ route('admin.logout') }}">@csrf<button type="submit"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>Log out</button></form>
         </div>
@@ -52,7 +58,7 @@
         <header class="top">
             <button class="top__menu" type="button" aria-controls="side" aria-expanded="false" onclick="var s=document.getElementById('side');var o=s.classList.toggle('is-open');this.setAttribute('aria-expanded',o)"><i class="fa-solid fa-bars" aria-hidden="true"></i><span>Menu</span></button>
             <div class="top__title">@yield('title', 'Admin')</div>
-            <div class="top__user"><i class="fa-solid fa-circle-user" aria-hidden="true"></i>{{ auth()->user()?->name }}</div>
+            <a class="top__user" href="{{ route('admin.account') }}"><i class="fa-solid fa-circle-user" aria-hidden="true"></i>{{ auth()->user()?->name }} <span class="tag">{{ auth()->user()?->roleLabel() }}</span></a>
         </header>
         @if (config('afroiso.uat'))
             <div class="uat-note">UAT test site. Data here is separate from the live website.</div>

@@ -20,7 +20,8 @@ class AuthController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+        // A login that an administrator has switched off is treated like a wrong password.
+        if (! Auth::attempt($credentials + ['is_active' => true], $request->boolean('remember'))) {
             return back()->withErrors(['email' => 'The email address or password is incorrect.'])->onlyInput('email');
         }
 

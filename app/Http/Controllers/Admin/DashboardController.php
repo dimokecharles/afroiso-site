@@ -12,8 +12,12 @@ use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
 {
-    public function __invoke()
+    public function __invoke(\Illuminate\Http\Request $request)
     {
+        if (! $request->user()->canAccess('dashboard')) {
+            return $request->user()->canAccess('content') ? redirect()->route('admin.courses.index') : redirect()->route('admin.account');
+        }
+
         $now = now();
         $thisMonth = $now->copy()->startOfMonth();
         $lastMonth = $thisMonth->copy()->subMonth();

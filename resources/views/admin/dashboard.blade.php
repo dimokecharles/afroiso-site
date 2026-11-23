@@ -9,6 +9,7 @@
     $topCourseMax = max(1, $topCourses->max('revenue') ?? 0);
     $topPublicationMax = max(1, $topPublications->max('revenue') ?? 0);
     $interestMax = max(1, $courseInterest->max('enquiries') ?? 0);
+    $can = fn (string $area) => auth()->user()->canAccess($area);
 @endphp
 
 @section('content')
@@ -19,11 +20,14 @@
     </div>
     <div class="head__actions">
         <a class="btn btn--plain" href="{{ route('admin.contacts.create') }}">Add a contact</a>
-        <a class="btn" href="{{ route('admin.orders.create') }}">New consulting invoice</a>
+        @if ($can('payments'))
+            <a class="btn" href="{{ route('admin.orders.create') }}">New consulting invoice</a>
+        @endif
     </div>
 </div>
 
 <div class="kpis">
+    @if ($can('payments'))
     <a class="kpi" href="{{ route('admin.orders.index', ['status' => 'paid']) }}">
         <span class="kpi__label"><i class="fa-solid fa-sack-dollar" aria-hidden="true"></i>Revenue this month</span>
         <strong>{{ $money($revenueThisMonth) }}</strong>
@@ -40,11 +44,14 @@
         <strong>{{ $pendingCount }}</strong>
         <span class="kpi__note">Worth {{ $money($pendingValue) }}</span>
     </a>
+    @endif
+    @if ($can('enquiries'))
     <a class="kpi" href="{{ route('admin.enquiries.index', ['status' => 'new']) }}">
         <span class="kpi__label"><i class="fa-solid fa-inbox" aria-hidden="true"></i>New enquiries</span>
         <strong>{{ $newEnquiries }}</strong>
         <span class="kpi__note">{{ $openLeads }} open {{ $openLeads === 1 ? 'lead' : 'leads' }} in total</span>
     </a>
+    @endif
     <a class="kpi" href="{{ route('admin.contacts.index') }}">
         <span class="kpi__label"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>Enquiries converted</span>
         <strong>{{ $conversion !== null ? $conversion . '%' : 'No data yet' }}</strong>
@@ -52,7 +59,7 @@
     </a>
 </div>
 
-@if ($followUps->isNotEmpty())
+@if ($can('enquiries') && $followUps->isNotEmpty())
 <div class="panel panel--alert">
     <h2><i class="fa-solid fa-bell" aria-hidden="true"></i>Follow-ups due</h2>
     <ul class="plain-list">
@@ -63,6 +70,7 @@
 </div>
 @endif
 
+@if ($can('payments'))
 <div class="grid grid--2">
     <section class="panel">
         <h2>Revenue by month</h2>
@@ -103,6 +111,8 @@
         @include('admin._ranking', ['rows' => $topPublications, 'max' => $topPublicationMax, 'empty' => 'No paid publication orders yet.', 'unit' => 'order'])
     </section>
 </div>
+
+@endif
 
 <div class="grid grid--2">
     <section class="panel">
@@ -162,11 +172,14 @@
 </div>
 
 <div class="grid grid--2">
+    @if ($can('enquiries'))
     <section class="panel">
         <h2>Latest enquiries</h2>
         @include('admin.enquiries._table', ['enquiries' => $enquiries, 'compact' => true])
         <p class="more"><a href="{{ route('admin.enquiries.index') }}">All enquiries and leads</a></p>
     </section>
+    @endif
+    @if ($can('payments'))
     <section class="panel">
         <h2>Latest payments and orders</h2>
         <div class="table-wrap">
@@ -188,5 +201,6 @@
         </div>
         <p class="more"><a href="{{ route('admin.orders.index') }}">All payments</a></p>
     </section>
+    @endif
 </div>
 @endsection

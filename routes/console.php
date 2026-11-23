@@ -24,6 +24,8 @@ Artisan::command('afroiso:sync-admin', function () {
     $user = User::firstOrNew(['email' => $email]);
     $user->name = $user->name ?: 'Administrator';
     $user->password = Hash::make($password);
+    $user->role = 'admin';
+    $user->is_active = true;
     $user->save();
 
     $this->info('Admin login updated for ' . $email . '.');
