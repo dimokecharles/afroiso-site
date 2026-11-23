@@ -17,6 +17,9 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
+    /** A new login is an active administrator unless it is given something else. */
+    protected $attributes = ['role' => 'admin', 'is_active' => true];
+
     /** What each role is called. */
     public const ROLES = ['admin' => 'Administrator', 'finance' => 'Finance', 'sales' => 'Sales', 'content' => 'Content editor'];
 
