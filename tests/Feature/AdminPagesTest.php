@@ -35,4 +35,19 @@ class AdminPagesTest extends TestCase
         $this->actingAs($admin)->get('/admin/enquiries?page=2')->assertOk()->assertSee('Previous');
         $this->actingAs($admin)->get('/admin/certificates')->assertOk()->assertSee('Next');
     }
+
+    public function test_admin_password_can_be_reset_from_the_settings_file(): void
+    {
+        config(['afroiso.admin_email' => 'admin@example.com', 'afroiso.admin_password' => 'first-password']);
+        $this->artisan('afroiso:sync-admin')->assertExitCode(0);
+        $this->post('/admin/login', ['email' => 'admin@example.com', 'password' => 'first-password'])->assertRedirect('/admin');
+        auth()->logout();
+
+        config(['afroiso.admin_password' => 'second-password']);
+        $this->artisan('afroiso:sync-admin')->assertExitCode(0);
+        $this->assertSame(1, User::where('email', 'admin@example.com')->count());
+        $this->post('/admin/login', ['email' => 'admin@example.com', 'password' => 'first-password']);
+        $this->assertGuest();
+        $this->post('/admin/login', ['email' => 'admin@example.com', 'password' => 'second-password'])->assertRedirect('/admin');
+    }
 }

@@ -112,6 +112,18 @@ done
 # 7. Refresh Laravel's caches.
 "$PHP" artisan config:cache
 "$PHP" artisan view:clear
+
+# 8. Admin login. When ADMIN_PASSWORD in .env is different from the last deploy, apply it to the admin account.
+#    To change the admin password: edit ADMIN_PASSWORD in .env, then deploy.
+ADMIN_MARK="storage/app/.admin-password"
+ADMIN_PASSWORD_VALUE="$(env_value ADMIN_PASSWORD)"
+if [ -n "$ADMIN_PASSWORD_VALUE" ]; then
+    ADMIN_SUM="$(printf '%s' "$ADMIN_PASSWORD_VALUE" | sha256sum | cut -d' ' -f1)"
+    if [ "$(cat "$ADMIN_MARK" 2>/dev/null)" != "$ADMIN_SUM" ]; then
+        "$PHP" artisan afroiso:sync-admin && echo "$ADMIN_SUM" > "$ADMIN_MARK"
+    fi
+fi
+unset ADMIN_PASSWORD_VALUE
 chmod -R u+rwX storage bootstrap/cache
 
 echo "===== Deploy finished $(date) ====="
