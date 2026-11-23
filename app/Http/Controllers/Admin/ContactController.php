@@ -39,9 +39,9 @@ class ContactController extends Controller
         return redirect()->route('admin.contacts.show', $contact)->with('status', 'Contact added.');
     }
 
-    public function show(Contact $contact)
+    public function show(Request $request, Contact $contact)
     {
-        $contact->load(['enquiries' => fn ($query) => $query->latest(), 'orders' => fn ($query) => $query->latest(), 'notes.user']);
+        $contact->load(['enquiries' => fn ($query) => $query->latest(), 'orders' => fn ($query) => $query->latest(), 'projects', 'notes.user']);
 
         // One history, newest first: every enquiry and every order this person has made.
         $history = $contact->enquiries->map(fn ($enquiry) => [
@@ -49,13 +49,19 @@ class ContactController extends Controller
             'icon' => 'fa-inbox',
             'title' => 'Enquiry: ' . ($enquiry->subject ?: $enquiry->interest ?: 'General'),
             'detail' => $enquiry->statusLabel(),
-            'url' => route('admin.enquiries.show', $enquiry),
+            'url' => $request->user()->canAccess('enquiries') ? route('admin.enquiries.show', $enquiry) : null,
         ])->concat($contact->orders->map(fn ($order) => [
             'when' => $order->created_at,
             'icon' => $order->type === 'enrolment' ? 'fa-user-graduate' : ($order->type === 'publication' ? 'fa-book-open' : 'fa-file-invoice-dollar'),
             'title' => $order->typeLabel() . ': ' . $order->description,
             'detail' => $order->amountLabel() . ', ' . strtolower($order->statusLabel()),
-            'url' => route('admin.orders.show', $order),
+            'url' => $request->user()->canAccess('payments') ? route('admin.orders.show', $order) : null,
+        ]))->concat($contact->projects->map(fn ($project) => [
+            'when' => $project->created_at,
+            'icon' => 'fa-diagram-project',
+            'title' => 'Consulting project: ' . $project->title,
+            'detail' => $project->stageLabel(),
+            'url' => $request->user()->canAccess('consulting') ? route('admin.projects.show', $project) : null,
         ]))->sortByDesc('when')->values();
 
         return view('admin.contacts.show', [

@@ -152,3 +152,12 @@ h3 { font-size: 15px; margin: 0 0 8px; color: #0F1E45; }
 .role-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
 .role-list strong { color: #0F1E45; }
 .tag--off { background: #E6EAF1; color: #4A5568; }
+.stages { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 8px; }
+.stages li { flex: 1 1 130px; display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #F3F5F9; border-bottom: 4px solid #D9DEE8; font-weight: 600; color: #4A5568; }
+.stages span { flex: none; width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 1px solid #C9D0DE; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #0F1E45; }
+.stages .is-done { border-bottom-color: #0F1E45; color: #0F1E45; }
+.stages .is-done span { background: #0F1E45; border-color: #0F1E45; color: #fff; }
+.stages .is-current { background: #FFF1E4; border-bottom-color: #F47216; color: #0F1E45; }
+.stages .is-current span { background: #F47216; border-color: #F47216; color: #0A1530; }
+.panel > .head { margin-bottom: 12px; }
+.panel > .head h2 { margin: 0; }

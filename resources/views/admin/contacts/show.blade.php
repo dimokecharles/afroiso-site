@@ -11,6 +11,9 @@
     </div>
     <div class="head__actions">
         <a class="btn btn--plain" href="{{ route('admin.contacts.index') }}">Back to contacts</a>
+        @if (auth()->user()->canAccess('consulting'))
+            <a class="btn btn--plain" href="{{ route('admin.projects.create', ['contact' => $contact->id]) }}">New consulting project</a>
+        @endif
         <a class="btn" href="{{ route('admin.contacts.edit', $contact) }}">Edit contact</a>
     </div>
 </div>
@@ -33,7 +36,11 @@
                         <li>
                             <i class="fa-solid {{ $item['icon'] }}" aria-hidden="true"></i>
                             <div>
-                                <a href="{{ $item['url'] }}">{{ $item['title'] }}</a>
+                                @if ($item['url'])
+                                    <a href="{{ $item['url'] }}">{{ $item['title'] }}</a>
+                                @else
+                                    <strong>{{ $item['title'] }}</strong>
+                                @endif
                                 <time datetime="{{ $item['when']->toIso8601String() }}">{{ $item['when']->format('j M Y, H:i') }} · {{ $item['detail'] }}</time>
                             </div>
                         </li>

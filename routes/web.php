@@ -56,6 +56,9 @@ Route::prefix('admin')->group(function () {
         Route::middleware('area:enrolments')->group(function () {
             Route::get('enrolments', [Admin\EnrolmentController::class, 'index'])->name('enrolments.index');
         });
+        Route::middleware('area:consulting')->group(function () {
+            Route::resource('projects', Admin\ProjectController::class)->except('destroy');
+        });
         Route::middleware('area:payments')->group(function () {
             Route::resource('orders', Admin\OrderController::class)->only(['index', 'create', 'store', 'show', 'update']);
             Route::post('orders/{order}/send', [Admin\OrderController::class, 'send'])->name('orders.send');

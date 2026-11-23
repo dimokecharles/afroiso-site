@@ -28,8 +28,8 @@
     <h2>What each role can open</h2>
     <ul class="role-list">
         <li><strong>Administrator:</strong> everything, including staff logins.</li>
-        <li><strong>Finance:</strong> dashboard, contacts, enrolments and payments.</li>
-        <li><strong>Sales:</strong> dashboard, contacts, enquiries and leads, and enrolments. No payment figures.</li>
+        <li><strong>Finance:</strong> dashboard, contacts, enrolments, payments and consulting projects.</li>
+        <li><strong>Sales:</strong> dashboard, contacts, enquiries and leads, enrolments and consulting projects. No payments or invoices.</li>
         <li><strong>Content editor:</strong> courses, publications and certificates.</li>
     </ul>
 </div>

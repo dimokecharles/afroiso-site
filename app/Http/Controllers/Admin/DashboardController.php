@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\Enquiry;
 use App\Models\Order;
 use App\Models\PageView;
+use App\Models\Project;
 use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
@@ -84,6 +85,7 @@ class DashboardController extends Controller
             'viewTotal' => $views->count(),
             'topReferrers' => $views->whereNotNull('referrer_host')->countBy('referrer_host')->sortDesc()->take(5),
             'topPages' => $views->countBy('path')->sortDesc()->take(6),
+            'projects' => Project::with('contact')->whereNotIn('stage', ['completed', 'on-hold'])->orderByRaw('target_date is null')->orderBy('target_date')->limit(6)->get(),
             'enquiries' => Enquiry::latest()->limit(6)->get(),
             'orders' => Order::latest()->limit(6)->get(),
             'followUps' => Enquiry::whereNotIn('status', ['converted', 'closed'])->whereNotNull('follow_up_on')->where('follow_up_on', '<=', Carbon::today())->orderBy('follow_up_on')->limit(6)->get(),

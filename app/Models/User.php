@@ -25,11 +25,11 @@ class User extends Authenticatable
 
     /**
      * The parts of the admin panel each role can open. Administrators can open everything, including staff logins.
-     * Areas: dashboard, contacts, enquiries, enrolments, payments, content, staff.
+     * Areas: dashboard, contacts, enquiries, enrolments, payments, consulting, content, staff.
      */
     public const AREAS = [
-        'finance' => ['dashboard', 'contacts', 'enrolments', 'payments'],
-        'sales' => ['dashboard', 'contacts', 'enquiries', 'enrolments'],
+        'finance' => ['dashboard', 'contacts', 'enrolments', 'payments', 'consulting'],
+        'sales' => ['dashboard', 'contacts', 'enquiries', 'enrolments', 'consulting'],
         'content' => ['content'],
     ];
 

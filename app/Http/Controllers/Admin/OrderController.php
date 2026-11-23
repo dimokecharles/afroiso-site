@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\OrderMessage;
 use App\Models\Order;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -33,9 +34,10 @@ class OrderController extends Controller
     }
 
     /** Form for a new consulting invoice. */
-    public function create()
+    public function create(Request $request)
     {
-        return view('admin.orders.form');
+        // Opened from a project: the client's details are filled in and the invoice is linked to the project.
+        return view('admin.orders.form', ['project' => Project::with('contact')->find((int) $request->query('project'))]);
     }
 
     public function store(Request $request)
@@ -48,6 +50,7 @@ class OrderController extends Controller
             'description' => ['required', 'string', 'max:255'],
             'amount' => ['required', 'numeric', 'min:0.01', 'max:99999999'],
             'notes' => ['nullable', 'string', 'max:5000'],
+            'project_id' => ['nullable', 'exists:projects,id'],
         ]);
 
         $order = Order::create($data + ['type' => 'invoice']);

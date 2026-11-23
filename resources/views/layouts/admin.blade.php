@@ -20,6 +20,7 @@
             ['Enquiries and leads', 'admin.enquiries.index', 'admin.enquiries.*', 'fa-inbox', 'enquiries'],
             ['Enrolments', 'admin.enrolments.index', 'admin.enrolments.*', 'fa-user-graduate', 'enrolments'],
             ['Payments', 'admin.orders.index', 'admin.orders.*', 'fa-credit-card', 'payments'],
+            ['Consulting projects', 'admin.projects.index', 'admin.projects.*', 'fa-diagram-project', 'consulting'],
         ],
         'Content' => [
             ['Courses', 'admin.courses.index', 'admin.courses.*', 'fa-graduation-cap', 'content'],

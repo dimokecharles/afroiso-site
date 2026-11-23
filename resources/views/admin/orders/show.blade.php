@@ -19,6 +19,9 @@
             @endif
             {{ $order->organisation ? '(' . $order->organisation . ')' : '' }}
         </dd></div>
+        @if ($order->project)
+            <div><dt>Project</dt><dd>{{ $order->project->title }}</dd></div>
+        @endif
         <div><dt>Email</dt><dd><a href="mailto:{{ $order->customer_email }}">{{ $order->customer_email }}</a></dd></div>
         @if ($order->customer_phone)
             <div><dt>Phone</dt><dd>{{ $order->customer_phone }}</dd></div>

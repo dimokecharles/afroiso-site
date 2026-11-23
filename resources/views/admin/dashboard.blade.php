@@ -171,6 +171,30 @@
     </section>
 </div>
 
+@if ($can('consulting'))
+<section class="panel" style="margin-top: 24px">
+    <h2>Active consulting projects</h2>
+    <div class="table-wrap">
+        <table class="table--compact">
+            <thead><tr><th>Project</th><th>Client</th><th>Stage</th><th>Target date</th></tr></thead>
+            <tbody>
+                @forelse ($projects as $project)
+                    <tr>
+                        <td><a href="{{ route('admin.projects.show', $project) }}">{{ $project->title }}</a></td>
+                        <td>{{ $project->contact->organisation ?: $project->contact->name }}</td>
+                        <td>{{ $project->stageLabel() }}</td>
+                        <td>{{ $project->target_date?->format('j M Y') ?? 'Not set' }}@if ($project->isOverdue()) <span class="tag tag--bad">Overdue</span>@endif</td>
+                    </tr>
+                @empty
+                    <tr><td colspan="4">No active consulting projects.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+    <p class="more"><a href="{{ route('admin.projects.index') }}">All consulting projects</a></p>
+</section>
+@endif
+
 <div class="grid grid--2">
     @if ($can('enquiries'))
     <section class="panel">

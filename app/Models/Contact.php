@@ -24,6 +24,11 @@ class Contact extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class);
+    }
+
     public function notes(): MorphMany
     {
         return $this->morphMany(Note::class, 'notable')->latest();

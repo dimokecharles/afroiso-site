@@ -18,7 +18,7 @@ class Order extends Model
 
     protected $fillable = [
         'type', 'course_id', 'publication_id', 'description', 'customer_name', 'customer_email', 'customer_phone',
-        'organisation', 'amount', 'currency', 'status', 'gateway', 'gateway_reference', 'paid_at', 'notes', 'contact_id',
+        'organisation', 'amount', 'currency', 'status', 'gateway', 'gateway_reference', 'paid_at', 'notes', 'contact_id', 'project_id',
     ];
 
     protected $casts = [
@@ -53,6 +53,11 @@ class Order extends Model
     public function contact(): BelongsTo
     {
         return $this->belongsTo(Contact::class);
+    }
+
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
     }
 
     public function isPaid(): bool
