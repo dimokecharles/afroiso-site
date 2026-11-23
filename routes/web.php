@@ -40,7 +40,10 @@ Route::prefix('admin')->group(function () {
         Route::resource('courses', Admin\CourseController::class)->except('show');
         Route::resource('publications', Admin\PublicationController::class)->except('show');
         Route::resource('certificates', Admin\CertificateController::class)->except('show');
-        Route::resource('enquiries', Admin\EnquiryController::class)->only(['index', 'show', 'destroy']);
+        Route::resource('enquiries', Admin\EnquiryController::class)->only(['index', 'show', 'update', 'destroy']);
+        Route::resource('contacts', Admin\ContactController::class)->except('destroy');
+        Route::get('enrolments', [Admin\EnrolmentController::class, 'index'])->name('enrolments.index');
+        Route::post('notes', [Admin\NoteController::class, 'store'])->name('notes.store');
         Route::resource('orders', Admin\OrderController::class)->only(['index', 'create', 'store', 'show', 'update']);
         Route::post('orders/{order}/send', [Admin\OrderController::class, 'send'])->name('orders.send');
     });

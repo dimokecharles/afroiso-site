@@ -10,6 +10,7 @@
     <li><strong>Enrolment and invoicing.</strong> When you enrol on a course or order a publication, our office collects the details needed to invoice you and deliver the service, such as your name, contact details, the course or publication chosen and your payment records.</li>
     <li><strong>Certificates.</strong> For each certificate we issue we keep the certificate number, the holder's name, the course and the date of issue.</li>
     <li><strong>Technical information.</strong> Our hosting provider records standard server logs, such as your IP address, browser type, the pages requested and the time of each request.</li>
+    <li><strong>Visit counts.</strong> We count how many times each page is visited and which website a visitor came from. We do this without cookies and without storing your IP address, so the counts cannot identify you.</li>
 </ul>
 <p>We do not ask for card details on this website. Invoices are paid using the payment details our office sends you.</p>
 

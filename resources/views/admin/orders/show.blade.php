@@ -11,7 +11,14 @@
         <div><dt>Status</dt><dd><span @class(['tag', 'tag--ok' => $order->isPaid(), 'tag--bad' => in_array($order->status, ['failed', 'cancelled'])])>{{ $order->statusLabel() }}</span></dd></div>
         <div><dt>For</dt><dd>{{ $order->description }}</dd></div>
         <div><dt>Amount</dt><dd>{{ $order->amountLabel() }}</dd></div>
-        <div><dt>Customer</dt><dd>{{ $order->customer_name }}@if ($order->organisation), {{ $order->organisation }}@endif</dd></div>
+        <div><dt>Customer</dt><dd>
+            @if ($order->contact_id)
+                <a href="{{ route('admin.contacts.show', $order->contact_id) }}">{{ $order->customer_name }}</a>
+            @else
+                {{ $order->customer_name }}
+            @endif
+            {{ $order->organisation ? '(' . $order->organisation . ')' : '' }}
+        </dd></div>
         <div><dt>Email</dt><dd><a href="mailto:{{ $order->customer_email }}">{{ $order->customer_email }}</a></dd></div>
         @if ($order->customer_phone)
             <div><dt>Phone</dt><dd>{{ $order->customer_phone }}</dd></div>

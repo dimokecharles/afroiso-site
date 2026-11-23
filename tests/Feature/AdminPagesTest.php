@@ -17,7 +17,7 @@ class AdminPagesTest extends TestCase
         $this->seed();
         $admin = User::factory()->create();
 
-        foreach (['/admin', '/admin/enquiries', '/admin/courses', '/admin/publications', '/admin/certificates', '/admin/orders'] as $url) {
+        foreach (['/admin', '/admin/enquiries', '/admin/courses', '/admin/publications', '/admin/certificates', '/admin/orders', '/admin/contacts', '/admin/contacts/create', '/admin/enrolments', '/admin/orders/create'] as $url) {
             $this->actingAs($admin)->get($url)->assertOk();
         }
     }

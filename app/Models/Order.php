@@ -18,7 +18,7 @@ class Order extends Model
 
     protected $fillable = [
         'type', 'course_id', 'publication_id', 'description', 'customer_name', 'customer_email', 'customer_phone',
-        'organisation', 'amount', 'currency', 'status', 'gateway', 'gateway_reference', 'paid_at', 'notes',
+        'organisation', 'amount', 'currency', 'status', 'gateway', 'gateway_reference', 'paid_at', 'notes', 'contact_id',
     ];
 
     protected $casts = [
@@ -32,6 +32,7 @@ class Order extends Model
             $order->token = $order->token ?: Str::random(48);
             $order->currency = $order->currency ?: 'USD';
             $order->status = $order->status ?: 'pending';
+            $order->contact_id ??= Contact::sync($order->customer_name, $order->customer_email, $order->customer_phone, $order->organisation, 'order')?->id;
         });
 
         static::created(function (Order $order) {
@@ -47,6 +48,11 @@ class Order extends Model
     public function publication(): BelongsTo
     {
         return $this->belongsTo(Publication::class);
+    }
+
+    public function contact(): BelongsTo
+    {
+        return $this->belongsTo(Contact::class);
     }
 
     public function isPaid(): bool
