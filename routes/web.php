@@ -49,6 +49,10 @@ Route::prefix('admin')->group(function () {
         });
         Route::middleware('area:enquiries')->group(function () {
             Route::resource('enquiries', Admin\EnquiryController::class)->only(['index', 'show', 'update', 'destroy']);
+            Route::get('messages', [Admin\MessageController::class, 'index'])->name('messages.index');
+            Route::post('enquiries/{enquiry}/reply', [Admin\MessageController::class, 'reply'])->name('enquiries.reply');
+            Route::post('enquiries/{enquiry}/received', [Admin\MessageController::class, 'received'])->name('enquiries.received');
+            Route::post('enquiries/{enquiry}/done', [Admin\MessageController::class, 'done'])->name('enquiries.done');
         });
         Route::middleware('area:contacts')->group(function () {
             Route::resource('contacts', Admin\ContactController::class)->except('destroy');

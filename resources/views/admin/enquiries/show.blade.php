@@ -18,7 +18,7 @@
 <div class="two-col">
     <div>
         <div class="panel">
-            <h2>Message</h2>
+            <h2>From</h2>
             <dl class="detail">
                 <div><dt>Email</dt><dd><a href="mailto:{{ $enquiry->email }}">{{ $enquiry->email }}</a></dd></div>
                 @if ($enquiry->phone)
@@ -33,11 +33,64 @@
                 @if ($enquiry->subject)
                     <div><dt>Regarding</dt><dd>{{ $enquiry->subject }}</dd></div>
                 @endif
-                <div><dt>Message</dt><dd>{!! nl2br(e($enquiry->message)) !!}</dd></div>
             </dl>
-            <div class="form__actions" style="margin-top: 18px">
-                <a class="btn" href="mailto:{{ $enquiry->email }}?subject={{ rawurlencode('Re: ' . ($enquiry->subject ?: 'Your enquiry to AfroISO')) }}">Reply by email</a>
+        </div>
+        <div class="panel" id="conversation">
+            <div class="head">
+                <h2>Conversation</h2>
+                @if ($enquiry->awaiting_reply)
+                    <form method="post" action="{{ route('admin.enquiries.done', $enquiry) }}">
+                        @csrf
+                        <button class="btn btn--plain" type="submit">No reply needed</button>
+                    </form>
+                @endif
             </div>
+            <div class="thread">
+                <div class="bubble bubble--in">
+                    <div class="bubble__meta">{{ $enquiry->name }}, {{ $enquiry->created_at->format('j M Y, H:i') }}, website form</div>
+                    <p>{{ $enquiry->message }}</p>
+                </div>
+                @foreach ($enquiry->messages as $message)
+                    <div @class(['bubble', 'bubble--out' => $message->isOutgoing(), 'bubble--in' => ! $message->isOutgoing()])>
+                        <div class="bubble__meta">
+                            @if ($message->isOutgoing())
+                                {{ $message->user?->name ?? 'Staff' }}, {{ $message->created_at->format('j M Y, H:i') }}
+                                @if ($message->delivery === 'sent')
+                                    <span class="tag tag--ok">Emailed</span>
+                                @elseif ($message->delivery === 'logged')
+                                    <span class="tag tag--off">Not emailed: email is off</span>
+                                @else
+                                    <span class="tag tag--bad">Email failed</span>
+                                @endif
+                            @else
+                                {{ $enquiry->name }}, {{ $message->created_at->format('j M Y, H:i') }}, recorded by {{ $message->user?->name ?? 'staff' }}
+                            @endif
+                        </div>
+                        <p>{{ $message->body }}</p>
+                    </div>
+                @endforeach
+            </div>
+            <form method="post" action="{{ route('admin.enquiries.reply', $enquiry) }}" class="form" style="margin-top: 20px">
+                @csrf
+                <div class="field">
+                    <label for="reply-body">Reply to {{ $enquiry->name }}</label>
+                    <textarea id="reply-body" name="body" rows="5" required>{{ old('body') }}</textarea>
+                    <small>Sent by email to {{ $enquiry->email }}, starting "Dear {{ $enquiry->name }}," and signed with your name. A copy is kept here.</small>
+                </div>
+                <div class="form__actions"><button class="btn" type="submit">Send reply</button></div>
+            </form>
+            <details class="received">
+                <summary>Record a reply from the customer</summary>
+                <form method="post" action="{{ route('admin.enquiries.received', $enquiry) }}" class="form">
+                    @csrf
+                    <div class="field">
+                        <label for="received-body">What the customer said</label>
+                        <textarea id="received-body" name="body" rows="4" required></textarea>
+                        <small>Use this when the customer answers by email, phone or WhatsApp. Nothing is sent.</small>
+                    </div>
+                    <div class="form__actions"><button class="btn btn--plain" type="submit">Record customer reply</button></div>
+                </form>
+            </details>
         </div>
         <div class="panel">
             @include('admin._notes', ['on' => 'enquiry', 'record' => $enquiry, 'notes' => $enquiry->notes])

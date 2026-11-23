@@ -65,6 +65,7 @@ class DashboardController extends Controller
             'pendingCount' => $pending->count(),
             'pendingValue' => (float) $pending->sum('amount'),
             'newEnquiries' => Enquiry::where('status', 'new')->count(),
+            'awaitingReply' => Enquiry::where('awaiting_reply', true)->count(),
             'openLeads' => Enquiry::whereNotIn('status', ['converted', 'closed'])->count(),
             'contactCount' => Contact::count(),
             'enquirerCount' => $enquirers->count(),

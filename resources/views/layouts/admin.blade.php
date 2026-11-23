@@ -17,6 +17,7 @@
         ],
         'Customers' => [
             ['Contacts', 'admin.contacts.index', 'admin.contacts.*', 'fa-address-book', 'contacts'],
+            ['Message box', 'admin.messages.index', 'admin.messages.*', 'fa-envelope-open-text', 'enquiries'],
             ['Enquiries and leads', 'admin.enquiries.index', 'admin.enquiries.*', 'fa-inbox', 'enquiries'],
             ['Enrolments', 'admin.enrolments.index', 'admin.enrolments.*', 'fa-user-graduate', 'enrolments'],
             ['Payments', 'admin.orders.index', 'admin.orders.*', 'fa-credit-card', 'payments'],

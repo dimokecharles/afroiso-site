@@ -49,7 +49,7 @@
     <a class="kpi" href="{{ route('admin.enquiries.index', ['status' => 'new']) }}">
         <span class="kpi__label"><i class="fa-solid fa-inbox" aria-hidden="true"></i>New enquiries</span>
         <strong>{{ $newEnquiries }}</strong>
-        <span class="kpi__note">{{ $openLeads }} open {{ $openLeads === 1 ? 'lead' : 'leads' }} in total</span>
+        <span class="kpi__note">{{ $awaitingReply }} waiting for a reply, {{ $openLeads }} open {{ $openLeads === 1 ? 'lead' : 'leads' }}</span>
     </a>
     @endif
     <a class="kpi" href="{{ route('admin.contacts.index') }}">

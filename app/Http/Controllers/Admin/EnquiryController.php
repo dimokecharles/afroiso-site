@@ -33,7 +33,7 @@ class EnquiryController extends Controller
         }
 
         return view('admin.enquiries.show', [
-            'enquiry' => $enquiry->load(['contact', 'owner', 'notes.user']),
+            'enquiry' => $enquiry->load(['contact', 'owner', 'notes.user', 'messages.user']),
             'staff' => User::orderBy('name')->get(['id', 'name']),
         ]);
     }
@@ -46,6 +46,11 @@ class EnquiryController extends Controller
             'assigned_to' => ['nullable', 'exists:users,id'],
             'follow_up_on' => ['nullable', 'date'],
         ]);
+
+        // A lead that is converted or closed no longer waits for a reply in the message box.
+        if (in_array($data['status'], ['converted', 'closed'], true)) {
+            $data['awaiting_reply'] = false;
+        }
 
         $enquiry->update($data);
 
