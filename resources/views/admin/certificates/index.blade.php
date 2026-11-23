@@ -32,6 +32,6 @@
             </tbody>
         </table>
     </div>
-    <div class="pagination">{{ $certificates->links('pagination::default') }}</div>
+    <div class="pagination">{{ $certificates->links('admin._pagination') }}</div>
 </div>
 @endsection
