@@ -57,6 +57,6 @@
             </tbody>
         </table>
     </div>
-    <div class="pagination">{{ $orders->links('pagination::default') }}</div>
+    <div class="pagination">{{ $orders->links('admin._pagination') }}</div>
 </div>
 @endsection
