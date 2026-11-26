@@ -49,8 +49,12 @@ if [ ! -s "$COMPOSER" ]; then
     exit 1
 fi
 
-# 3. Install Laravel's packages.
-"$PHP" "$COMPOSER" install --no-dev --optimize-autoloader --no-interaction || { echo "STOPPED: composer install failed."; exit 1; }
+# 3. Install Laravel's packages. The server keeps its own composer.lock (it is not in Git), so when a
+#    package is added to composer.json the plain install refuses to run; the lock is then rebuilt.
+if ! "$PHP" "$COMPOSER" install --no-dev --optimize-autoloader --no-interaction; then
+    echo "composer install failed (usually a new package in composer.json). Rebuilding the lock file."
+    "$PHP" "$COMPOSER" update --no-dev --optimize-autoloader --no-interaction || { echo "STOPPED: composer install failed."; exit 1; }
+fi
 
 # 4. First deploy only: create .env and stop so the database details can be filled in.
 if [ ! -f .env ]; then
